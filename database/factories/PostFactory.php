@@ -10,16 +10,17 @@ use Illuminate\Support\Str;
  */
 class PostFactory extends Factory
 {
-    /**
+	/**
      * Define the model's default state.
      *	 
      * @return array<string, mixed>
      */
+	 
     public function definition() {
 		$themes = ['Спальня', 'Гостиная', 'Ванная', 'Кухня', 'Прихожая', 'Балкон'];
         return [
             'title' => $this->faker->realText(mt_rand(20, 100)),
-			'alias' => Str::random(32),
+			//'slug' => slug заполнятеся автоматически с sluggable
 			'author' => $this->faker->name(),
 			'image_name' => 'post-'.mt_rand(1, 6).'.jpg',
 			'theme' => $this->faker->randomElement($themes),

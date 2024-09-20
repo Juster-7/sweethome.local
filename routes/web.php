@@ -1,7 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MainController;
+use App\Http\Controllers\IndexController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,16 +18,25 @@ use App\Http\Controllers\MainController;
 |
 */
 
-Route::get('/', [MainController::class, 'index'])->name('index');
-Route::get('/articles', [MainController::class, 'articles'])->name('articles');
-Route::any('/articles/{alias}', [MainController::class, 'article'])->name('article');
-Route::any('/articles/{alias}#comments', [MainController::class, 'article'])->name('article.comments');
-Route::any('/articles/{alias}#add_comment', [MainController::class, 'article'])->name('article.add_comment');
-Route::get('/contacts', [MainController::class, 'contacts'])->name('contacts');
-Route::get('/about', [MainController::class, 'about'])->name('about');
-Route::get('/shop', [MainController::class, 'shop'])->name('shop');
+/* Главная */
+Route::get('/', [IndexController::class, 'index'])->name('index');
 
-Route::get('/comments/{comment}/delete', [MainController::class, 'deleteComment'])->name('comment.delete')
-	->middleware('can:delete,comment');
-	
-Route::get('/search', [MainController::class, 'search'])->name('search');
+/* Статьи */
+Route::get('/posts', [PostController::class, 'posts'])->name('posts');
+Route::any('/posts/{slug}', [PostController::class, 'post'])->name('post');
+Route::any('/posts/{slug}#comments', [PostController::class, 'post'])->name('post.comments');
+Route::any('/posts/{slug}#add_comment', [PostController::class, 'post'])->name('post.add_comment');
+
+/* Комментарии */
+Route::get('/comments/{comment}/delete', [CommentController::class, 'delete'])->name('comment.delete')->middleware('can:delete,comment');
+Route::any('/comments/add', [CommentController::class, 'store'])->name('comment.add');
+
+/* Статические страницы */
+Route::get('/contacts', [PageController::class, 'contacts'])->name('contacts');
+Route::get('/about', [PageController::class, 'about'])->name('about');
+
+/* Магазин */
+Route::get('/shop', [PageController::class, 'shop'])->name('shop');
+
+/* Поиск */	
+Route::get('/search', [SearchController::class, 'search'])->name('search');

@@ -15,12 +15,13 @@ class ProductFactory extends Factory
      *
      * @return array<string, mixed>
      */
+	 
     public function definition()
     {
-        return [
+		return [
 			'product_id' => mt_rand(1, 40),
-			'name' => $this->faker->realText(mt_rand(20, 50)),
-			'alias' => Str::random(32),
+			'title' => $this->faker->realText(mt_rand(20, 50)),
+			//'slug' => slug заполнятеся автоматически с sluggable
 			'intro_text' => $this->faker->realText(mt_rand(40, 70)),
 			'main_text' => FactoryHelper::getFakerHTMLText($this->faker, mt_rand(2, 10)),
 			'price' => $this->faker->randomFloat(2, 100, 10000),

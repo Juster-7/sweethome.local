@@ -25,10 +25,10 @@
 								@foreach($posts as $post)		
 									<div class="col-md-12">
 										<div class="post post-row">								
-											<a class="post-img" href="{{ route('articles') }}/{{ $post->id }}"><img src="/images/{{ $post->image_name }}" alt></a>
+											<a class="post-img" href="{{ route('posts') }}/{{ $post->id }}"><img src="/images/{{ $post->image_name }}" alt></a>
 											<div class="post-body">
-												<div class="post-meta"> <a class="post-category cat-2" href="/articles?category={{ $post->theme }}">{{ $post->theme }}</a> <span class="post-date">{{ $post->date_show->translatedFormat('d F Y') }}</span> <span class="post-hits"><img src="/images/eye-symbol.png">{{ $post->hits }}</span></div>
-												<h3 class="post-title"><a href="{{ route('articles') }}/{{ $post->id }}">{{ $post->title }}</a></h3> 
+												<div class="post-meta"> <a class="post-category cat-2" href="/posts?category={{ $post->theme }}">{{ $post->theme }}</a> <span class="post-date">{{ $post->date_show->translatedFormat('d F Y') }}</span> <span class="post-hits"><img src="/images/eye-symbol.png">{{ $post->hits }}</span></div>
+												<h3 class="post-title"><a href="{{ route('posts') }}/{{ $post->id }}">{{ $post->title }}</a></h3> 
 												<p>{{ $post->intro_text }}</p>
 												</div>
 										</div>

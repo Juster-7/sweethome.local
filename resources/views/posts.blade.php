@@ -22,10 +22,10 @@
 								@endif									
 									<div class="{{ $class1 }}">
 										<div class="post {{ $class2 }}">								
-											<a class="post-img" href="{{ route('articles') }}/{{ $post->alias }}"><img src="/images/{{ $post->image_name }}" alt></a>
+											<a class="post-img" href="{{ route('posts') }}/{{ $post->slug }}"><img src="/images/{{ $post->image_name }}" alt></a>
 											<div class="post-body">
-												<div class="post-meta"> <a class="post-category cat-2" href="/articles?category={{ $post->theme }}">{{ $post->theme }}</a> <span class="post-date">{{ $post->date_show->translatedFormat('d F Y') }}</span> <span class="post-hits"><img src="/images/eye-symbol.png">{{ $post->hits }}</span></div>
-												<h3 class="post-title"><a href="{{ route('articles') }}/{{ $post->alias }}">{{ $post->title }}</a></h3> 
+												<div class="post-meta"> <a class="post-category cat-2" href="/posts?category={{ $post->theme }}">{{ $post->theme }}</a> <span class="post-date">{{ $post->date_show->translatedFormat('d F Y') }}</span> <span class="post-hits"><img src="/images/eye-symbol.png">{{ $post->hits }}</span></div>
+												<h3 class="post-title"><a href="{{ route('posts') }}/{{ $post->slug }}">{{ $post->title }}</a></h3> 
 												@if(($loop->iteration > 2 && (request()->page == 1 || !request()->page)) || request()->page > 1)
 													<p>{{ $post->intro_text }}</p>
 												@endif
@@ -43,7 +43,7 @@
 							<div class="category-widget">
 								<ul>
 									@foreach($top_categories as $category)
-										<li><a href="{{ route('articles', ['category' => $category->theme]) }}" class="cat-1">{{ $category->theme }}<span>{{ $category->total }}</span></a></li>
+										<li><a href="{{ route('posts', ['category' => $category->theme]) }}" class="cat-1">{{ $category->theme }}<span>{{ $category->total }}</span></a></li>
 									@endforeach
 								</ul>
 							</div>
@@ -52,7 +52,7 @@
 							<div class="tags-widget">
 								<ul>
 									@foreach($all_categories as $category)
-										<li><a href="{{ route('articles', ['category' => $category->theme]) }}">{{ $category->theme }}</a></li>
+										<li><a href="{{ route('posts', ['category' => $category->theme]) }}">{{ $category->theme }}</a></li>
 									@endforeach
 								</ul>
 							</div>

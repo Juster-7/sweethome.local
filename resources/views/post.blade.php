@@ -3,7 +3,7 @@
 	<x-slot name="description">descr</x-slot>
 	<x-slot name="keywords">keyw</x-slot>
 	<x-slot name="center">
-	@include('layouts.page-header-article', [
+	@include('layouts.page-header-post', [
 		'title' => $post->title,
 		'date' => $post->date_show->translatedFormat('d F Y'), 
 		'theme' => $post->theme,
@@ -57,7 +57,7 @@
 								<p class="error">{{ $message }}</p>
 							@endforeach
 						@endif
-						<form class="post-reply" name="add_comment" id="add_comment" action="{{ url()->current() }}" method="post">
+						<form class="post-reply" name="add_comment" id="add_comment" action="{{ route('comment.add') }}" method="post">
 							@csrf
 							<div class="row">
 								<div class="col-md-4">
@@ -89,9 +89,9 @@
 						</div>
 						@foreach($top_posts as $post)
 							<div class="post post-widget">
-								<a class="post-img" href="{{ route('articles') }}/{{ $post->alias }}"><img src="/images/{{ $post->image_name }}" alt></a>
+								<a class="post-img" href="{{ route('posts') }}/{{ $post->slug }}"><img src="/images/{{ $post->image_name }}" alt></a>
 								<div class="post-body">
-									<h3 class="post-title"><a href="{{ route('articles') }}/{{ $post->alias }}">{{ $post->title }}</a></h3> 
+									<h3 class="post-title"><a href="{{ route('posts') }}/{{ $post->slug }}">{{ $post->title }}</a></h3> 
 								</div>
 							</div>
 						@endforeach
@@ -102,7 +102,7 @@
 							<div class="category-widget">
 								<ul>
 									@foreach($top_categories as $category)
-										<li><a href="{{ route('articles', ['category' => $category->theme]) }}" class="cat-1">{{ $category->theme }}<span>{{ $category->total }}</span></a></li>
+										<li><a href="{{ route('posts', ['category' => $category->theme]) }}" class="cat-1">{{ $category->theme }}<span>{{ $category->total }}</span></a></li>
 									@endforeach
 								</ul>
 							</div>
@@ -111,7 +111,7 @@
 							<div class="tags-widget">
 								<ul>
 									@foreach($all_categories as $category)
-										<li><a href="{{ route('articles', ['category' => $category->theme]) }}">{{ $category->theme }}</a></li>
+										<li><a href="{{ route('posts', ['category' => $category->theme]) }}">{{ $category->theme }}</a></li>
 									@endforeach
 								</ul>
 							</div>
