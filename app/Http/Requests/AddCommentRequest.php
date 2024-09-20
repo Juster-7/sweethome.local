@@ -3,14 +3,15 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-//use Illuminate\Support\Facades\Validator;
+//use Illuminate\Contracts\Validation\Validator;
 
 class AddCommentRequest extends FormRequest
 {
 	//use Validator;
 	/*
 	protected function failedValidation(Validator $validator) {
-		return redirect()->route('post.add_comment', ['slug' => $post->slug])->withInput()->withErrors($validator->errors());
+		//return redirect()->route('post.add_comment', ['slug' => $post->slug])->withInput()->withErrors($validator->errors());
+		redirect()->route('index');
 	}
 	*/
 	

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use App\Http\Requests\AddCommentRequest;
 use App\Models\Comment;
 use App\Models\Post;
@@ -20,6 +21,10 @@ class CommentController extends Controller
 		return $comment->post;
 	}
 	
+	public function redirectToPostAddComments(Post $post) {
+		return redirect()->route('post.add_comment', ['slug' => $post->slug]);
+	}
+	
 	public function redirectToPostComments(Post $post) {
 		return redirect()->route('post.comments', ['slug' => $post->slug]);
 	}
@@ -29,11 +34,11 @@ class CommentController extends Controller
 		return $this->redirectToPostComments($this->getPostByComment($comment));
 	}
 	
-	public function store(AddCommentRequest $request) {
+	//public function store(AddCommentRequest $request) {
+	public function store(Request $request) {
 		$this->setAccessToken($request);
 		$post = $this->post->getPost($request->post_id);
 	
-		/*
 		$validator = Validator::make($request->all(), [
 			'post_id' => 'required|numeric',
 			'name' => 'required|alpha|max:100',
@@ -41,12 +46,9 @@ class CommentController extends Controller
 			'text' => 'required|max:250',
 			'parent_id' => 'numeric|nullable',
 		]);
-		if($validator->fails()) return redirect()->route('post.add_comment', ['slug' => $post->slug])->withInput()->withErrors($validator->errors());
-		$validated = $validator->validated();
-		*/
-		/*
-		$validated = $request;
+		if($validator->fails()) return $this->redirectToPostAddComments($post)->withInput()->withErrors($validator->errors());
 		
+		$validated = $validator->validated();		
 		$comment = new Comment();
 		$comment->post_id = $validated['post_id'];
 		$comment->name = $validated['name'];
@@ -55,8 +57,8 @@ class CommentController extends Controller
 		$comment->parent_id = $validated['parent_id'];
 		$comment->access_token = $request->session()->get('access_token');
 		$comment->save();
-		return redirect()->route('post.comments', ['slug' => $post->slug]);
-		*/
+		
+		return $this->redirectToPostComments($post);
 	}
 	
 	public function setAccessToken(Request $request) {
