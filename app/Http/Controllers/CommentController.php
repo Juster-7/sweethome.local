@@ -17,10 +17,6 @@ class CommentController extends Controller
 		$this->post = new Post;
 	}
 	
-	public function getPostByComment(Comment $comment) {
-		return $comment->post;
-	}
-	
 	public function redirectToPostAddComments(Post $post) {
 		return redirect()->route('post.add_comment', ['slug' => $post->slug]);
 	}
@@ -30,8 +26,9 @@ class CommentController extends Controller
 	}
 	
 	public function delete(Comment $comment) {
+		$post = $comment->getPostByComment();
 		$comment->deleteOrFail();
-		return $this->redirectToPostComments($this->getPostByComment($comment));
+		return $this->redirectToPostComments($post);
 	}
 	
 	//public function store(AddCommentRequest $request) {

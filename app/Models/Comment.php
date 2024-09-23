@@ -11,6 +11,17 @@ class Comment extends Model
     use HasFactory;
 	use SoftDeletes;
 	
+	protected static function boot() {
+		parent::boot();
+		
+		static::deleting(function ($instance) {
+			$instance->children->each->delete();
+		});
+		static::restoring(function ($instance) {
+			$instance->children->each->restore();
+		});
+	}
+	
 	public function post() {
 		return $this->belongsTo(Post::class);
 	}
@@ -31,5 +42,9 @@ class Comment extends Model
 	
 	public function getCommentsCountByPost(Post $post) {
 		return $this->where('post_id', $post->id)->count();
+	}
+	
+	public function getPostByComment() {
+		return $this->post;
 	}
 }
