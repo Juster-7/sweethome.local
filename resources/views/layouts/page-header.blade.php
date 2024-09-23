@@ -9,8 +9,15 @@
 					@else
 					<li>{{ $title }}</li>
 					@endif
-				</ul>
-				<h1>{{ $category ?? $title }}</h1> </div>
+				</ul>				 
+				@if($errors->any())
+					@foreach ($errors->all() as $message)
+						<h1 class="error">{{ $message }}</h1>
+					@endforeach
+				@else
+					<h1>{{ $category ?? $title }}</h1>
+				@endif
+			</div>
 		</div>
 	</div>
 </div>

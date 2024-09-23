@@ -74,10 +74,10 @@
 						@foreach($products as $product)
 						<div class="col-md-3">
 							<div class="post">
-								<a class="post-img" href="/shop/{{ $product->id }}"><img src="/images/post-4.jpg" alt></a>
+								<a class="post-img" href="{{ route('shop') }}/{{ $product->slug }}"><img src="/images/post-4.jpg" alt></a>
 								<div class="post-body">
 									<div class="post-meta"><span class="post-date">@money($product->price)</span> <a class="post-category cat-4 fr" href="/posts/&category={{ $post->theme }}">КУПИТЬ</a></div>
-									<h3 class="post-title"><a href="/shop/{{ $product->id }}">{{ $product->title }}</a></h3> </div>
+									<h3 class="post-title"><a href="{{ route('shop') }}/{{ $product->slug }}">{{ $product->title }}</a></h3> </div>
 							</div>
 						</div>
 						@endforeach

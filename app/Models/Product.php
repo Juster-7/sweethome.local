@@ -16,7 +16,6 @@ class Product extends Model
 	}
 	
 	public function getLastProducts(int $count) {
-		$products = $this->latest('id')->take($count)->get();
-        return $products;
+		return $this->latest('id')->take($count)->get();
 	}
 }

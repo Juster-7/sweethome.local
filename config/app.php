@@ -195,4 +195,5 @@ return [
         // ...
     ])->toArray(),
 
+	'posts_on_page' => env('CUSTOM_OPTION_POSTS_ON_PAGE'),
 ];

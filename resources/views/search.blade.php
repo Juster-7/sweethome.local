@@ -12,7 +12,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="section-row">
-						<div class="row" style="text-align:center;">
+						<div class="row" style="text-align:center;">							
 							@if (!count($posts))
 								<br>
 								<br>

@@ -22,4 +22,14 @@ class Comment extends Model
 	public function parent() {
 		return $this->belongsTo(Comment::class, 'parent_id', 'id');
 	}
+
+	public function getCommentsByPost(Post $post) {
+		return $this->where('post_id', $post->id)
+			->where('parent_id', null)
+			->latest('created_at')->get();
+	}
+	
+	public function getCommentsCountByPost(Post $post) {
+		return $this->where('post_id', $post->id)->count();
+	}
 }

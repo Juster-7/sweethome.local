@@ -14,8 +14,7 @@ class Post extends Model
 	use SoftDeletes;
 	use Sluggable;
 	
-	protected $fillable = ['post_id', 'name', 'email', 'text', 'parent_id'];
-	
+	protected $fillable = ['post_id', 'name', 'email', 'text', 'parent_id'];	
 	protected $casts = [ 'date_show' => 'date' ];
 	
 	public function sluggable():array {
@@ -30,17 +29,43 @@ class Post extends Model
 		return $q->where('date_show', '<', Carbon::now());
 	}
 	
-	public function getLastPosts(int $count) {
-		return $this->active()->latest('date_show')->take($count)->get();
-	}
-	
-	public function getTopPosts(int $count) {
-		return $this->active()->latest('hits')->take($count)->get();
-	}
-	
 	public function getPost(int $id) {
 		return $this->findOrFail($id);
 	}
 	
+	public function getPostBySlug(string $slug) {
+		return $this->where('slug', $slug)->firstOrFail();
+	}
 	
+	public function getLastPosts(int $count) {
+		return $this->active()
+			->latest('date_show')
+			->take($count)
+			->get();
+	}
+	
+	public function getTopPosts(int $count) {
+		return $this
+			->active()
+			->latest('hits')
+			->take($count)
+			->get();
+	}
+	
+	public function getTopCategories(int $count) {
+		return $this->active()
+			->groupBy('theme')
+			->selectRaw('theme, count(*) as total')
+			->orderByDesc('total', 'theme')
+			->take($count)
+			->get();
+	}
+	
+	public function getCategories(int $count) {
+		return $this->active()
+			->distinct()
+			->inRandomOrder()
+			->take($count)
+			->get('theme');
+	}
 }
