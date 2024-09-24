@@ -15,6 +15,26 @@ class Product extends Model
 		return [ 'slug' => [ 'source' => 'title' ]];
 	}
 	
+	public function category() {
+		return $this->belongsTo(Category::class);
+	}
+	
+	public function brand() {
+		return $this->belongsTo(Brand::class);
+	}
+	
+	public function carts() {
+		return $this->belongsToMany(Cart::class)->withPivot('quantity');
+	}
+	
+	public function getProductBySlug($slug) {
+		return $this->where('slug', $slug)->firstOrFail();
+	}
+	
+	public function getProductsByCategoryId(int $id) {
+		return $this->where('category_id', $id)->get();
+	}
+	
 	public function getLastProducts(int $count) {
 		return $this->latest('id')->take($count)->get();
 	}

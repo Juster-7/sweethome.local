@@ -659,6 +659,12 @@
      font-weight: 600;
 	 margin-right: 15px;
 }
+ .post-meta .post-date-big {
+     font-size: 20px;
+     font-weight: 600;
+	 margin-right: 15px;
+}
+
  .post-meta .post-hits {
      font-size: 13px;
      font-weight: 600;
@@ -1025,6 +1031,24 @@
 .pagination span.three-dots:hover{
 	color:#000;
 }
+
+/*=========================================================
+	SHOP
+===========================================================*/
+.shop-menu-links a {
+	
+}
+
+.shop-menu-links a:hover {
+	text-decoration:none;
+}
+
+.shop-menu-links .active {
+	text-decoration:underline;
+	margin-left:20px;
+}
+
+
 
 /*=========================================================
 	FOOTER

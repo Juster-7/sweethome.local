@@ -10,11 +10,11 @@
 				<li class="cat-2"><a href="{{ route('posts') }}">Спальня</a></li>
 				<li class="cat-3"><a href="{{ route('posts') }}">Кухня</a></li>
 				<li class="cat-4"><a href="{{ route('posts') }}">Ванная</a></li>
-				<li><a href="{{ route('shop') }}">Магазин</a></li>
+				<li><a href="{{ route('shop.index') }}">Магазин</a></li>
 				<li><a href="{{ route('contacts') }}">Контакты</a></li>
 			</ul>
 			<div class="nav-btns">
-				<button class="cart-btn"><i class="fa fa-cart"></i> <span class="cart-count">5</span></button>
+				<button class="cart-btn"><a href="{{ route('cart.index') }}"><i class="fa fa-cart"></i></a> <span class="cart-count">5</span></button>
 				<button class="aside-btn"><i class="fa fa-bars"></i></button>
 				<button class="search-btn"><i class="fa fa-search"></i></button>
 				<div class="search-form">

@@ -5,6 +5,8 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ShopController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\SearchController;
 
 /*
@@ -36,7 +38,14 @@ Route::get('/contacts', [PageController::class, 'contacts'])->name('contacts');
 Route::get('/about', [PageController::class, 'about'])->name('about');
 
 /* Магазин */
-Route::get('/shop', [PageController::class, 'shop'])->name('shop');
+Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
+Route::get('/shop/category/{slug}', [ShopController::class, 'category'])->name('shop.category');
+Route::get('/shop/brand/{slug}', [ShopController::class, 'brand'])->name('shop.brand');
+Route::get('/shop/product/{slug}', [ShopController::class, 'product'])->name('shop.product');
+
+/* Корзина */
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::get('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
 
 /* Поиск */	
 Route::get('/search', [SearchController::class, 'search'])->name('search');
