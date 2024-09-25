@@ -35,7 +35,7 @@ class PostController extends Controller
 	
     public function post(string $slug, Request $request){		
 		$post = $this->post->getPostBySlug($slug);
-		$post->increment('hits');
+		$post->incrementHits();
 		
 		$comments = $this->comment->getCommentsByPost($post);
 		$comments_count = $this->comment->getCommentsCountByPost($post);

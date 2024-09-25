@@ -68,4 +68,8 @@ class Post extends Model
 			->take($count)
 			->get('theme');
 	}
+	
+	public function incrementHits(): void{
+		$this->increment('hits');
+	}
 }

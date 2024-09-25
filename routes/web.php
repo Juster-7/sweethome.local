@@ -9,43 +9,57 @@ use App\Http\Controllers\ShopController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\SearchController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-/* Главная */
+/* 
+ * Главная 
+ */
 Route::get('/', [IndexController::class, 'index'])->name('index');
 
-/* Статьи */
+/*
+ * Статьи 
+ */
 Route::get('/posts', [PostController::class, 'posts'])->name('posts');
 Route::any('/posts/{slug}', [PostController::class, 'post'])->name('post');
 Route::any('/posts/{slug}#comments', [PostController::class, 'post'])->name('post.comments');
 Route::any('/posts/{slug}#add_comment', [PostController::class, 'post'])->name('post.add_comment');
 
-/* Комментарии */
+/*
+ * Комментарии 
+ */
 Route::get('/comments/{comment}/delete', [CommentController::class, 'delete'])->name('comment.delete')->middleware('can:delete,comment');
 Route::any('/comments/add', [CommentController::class, 'store'])->name('comment.add');
 
-/* Статические страницы */
+/* 
+ * Статические страницы 
+ */
 Route::get('/contacts', [PageController::class, 'contacts'])->name('contacts');
 Route::get('/about', [PageController::class, 'about'])->name('about');
 
-/* Магазин */
+/* 
+ * Магазин 
+ */
 Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
 Route::get('/shop/category/{slug}', [ShopController::class, 'category'])->name('shop.category');
 Route::get('/shop/brand/{slug}', [ShopController::class, 'brand'])->name('shop.brand');
 Route::get('/shop/product/{slug}', [ShopController::class, 'product'])->name('shop.product');
 
-/* Корзина */
-Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-Route::get('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
+/*
+ * Корзина 
+ */
+Route::group([
+	'as' => 'cart.',
+	'prefix' => 'cart'
+], function (){
+	Route::get('/', [CartController::class, 'index'])->name('index');
+	Route::get('checkout', [CartController::class, 'checkout'])->name('checkout');
+	Route::post('add/{id}', [CartController::class, 'add'])->where('id', '[0-9]+')->name('add');
+	Route::post('increase/{product_id}', [CartController::class, 'increase'])->where('product_id', '[0-9]+')->name('increase');
+	Route::post('decrease/{product_id}', [CartController::class, 'decrease'])->where('product_id', '[0-9]+')->name('decrease');
+	Route::post('remove/{product_id}', [CartController::class, 'remove'])->where('product_id', '[0-9]+')->name('remove');
+});
 
-/* Поиск */	
+
+
+/* 
+ * Поиск 
+ */	
 Route::get('/search', [SearchController::class, 'search'])->name('search');

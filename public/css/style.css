@@ -1048,7 +1048,15 @@
 	margin-left:20px;
 }
 
-
+ .transparent {
+	border:none;
+	background:transparent;
+	padding:0px;
+	margin:0px;	
+	width:1px;
+	height:1px;
+	outline:none;
+ }
 
 /*=========================================================
 	FOOTER

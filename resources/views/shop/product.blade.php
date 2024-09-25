@@ -34,7 +34,16 @@
 								<div class="post">
 									<img src="/images/post-4.jpg" alt>									
 									<div class="post-body">
-										<div class="post-meta"><a class="post-category cat-4" href="{{ route('shop.category', [ 'slug' => $product->category->slug ]) }}">{{ $product->category->title }}</a> <span class="post-date-big fr"><nobr>@money($product->price)</nobr> <a class="post-category cat-2" style="margin-left:20px;" href="#">В КОРЗИНУ</a></span></div>
+										<div class="post-meta">
+											<form action="{{ route('cart.add', ['id' => $product->id]) }}" method="post">
+												<a class="post-category cat-4" href="{{ route('shop.category', [ 'slug' => $product->category->slug ]) }}">{{ $product->category->title }}</a>
+												<span class="post-date-big fr"><nobr>@money($product->price)</nobr> 
+													@csrf
+													<input type="text" name="quantity" id="quantity" value="1" style="width:30px;margin-left:20px;">
+													<button class="post-category cat-2" style="margin-left:20px;">В КОРЗИНУ</button>
+												</span>
+											</form>
+										</div>
 										<br>
 										{!! $product->main_text !!}
 									</div>
