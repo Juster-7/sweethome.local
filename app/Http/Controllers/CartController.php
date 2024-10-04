@@ -27,7 +27,7 @@ class CartController extends Controller
         $quantity = request()->input('quantity') ?? 1;
         $this->cart->getCart()->changeProductQuantity($product_id, $quantity);
 				
-        return back();
+        return redirect()->back();
     }
 	
 	public function increase($product_id, $quantity = 1) {

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Category extends Model
+class PostCategory extends Model
 {
     use HasFactory;
 	use SoftDeletes;
@@ -17,19 +17,21 @@ class Category extends Model
 		return [ 'slug' => [ 'source' => 'title' ]];
 	}
 	
-	public function children() {
-		return $this->hasMany(Category::class, 'parent_id', 'id');
+	public function posts() {
+		return $this->hasMany(Post::class);
 	}
 	
-	public function parent() {
-		return $this->belongsTo(Category::class, 'parent_id', 'id');
+	public function getTopCategories(int $count) {
+		return $this->withCount('posts')
+			->orderByDesc('posts_count')
+			->take($count)
+			->get();	
 	}
 	
-	public function products() {
-		return $this->hasMany(Product::class);
-	}
-	
-	public function getRootCategories() {
-		return $this->where('parent_id', 0)->get();
+	public function getCategories(int $count) {
+		return $this->distinct()
+			->inRandomOrder()
+			->take($count)
+			->get();
 	}
 }

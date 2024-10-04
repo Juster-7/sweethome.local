@@ -5,13 +5,7 @@
 				<a href="{{ route('index') }}" class="logo"><img src="/images/logo4.png" alt></a>
 			</div>
 			<ul class="nav-menu nav navbar-nav">
-				<li><a href="{{ route('posts') }}">Статьи</a></li>
-				<li class="cat-1"><a href="{{ route('posts') }}">Гостиная</a></li>
-				<li class="cat-2"><a href="{{ route('posts') }}">Спальня</a></li>
-				<li class="cat-3"><a href="{{ route('posts') }}">Кухня</a></li>
-				<li class="cat-4"><a href="{{ route('posts') }}">Ванная</a></li>
-				<li><a href="{{ route('shop.index') }}">Магазин</a></li>
-				<li><a href="{{ route('contacts') }}">Контакты</a></li>
+				@include('layouts.menu')
 			</ul>
 			<div class="nav-btns">
 				<button class="cart-btn"><a href="{{ route('cart.index') }}"><i class="fa fa-cart"></i></a> <span class="cart-count">5</span></button>

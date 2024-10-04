@@ -164,7 +164,6 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         App\Providers\BladeServiceProvider::class,
-
         /*
          * Package Service Providers...
          */
@@ -177,7 +176,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
+		App\Providers\ModelServiceProvider::class,
+		App\Providers\ComposerServiceProvider::class,
     ],
 
     /*

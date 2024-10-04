@@ -20,10 +20,6 @@ class Brand extends Model
 	public function products() {
 		return $this->hasMany(Product::class);
 	}
-		
-	public function getBrandBySlug($slug) {
-		return $this->where('slug', $slug)->firstOrFail();
-	}
 	
 	public function getTopBrands(int $count) {
 		return $this

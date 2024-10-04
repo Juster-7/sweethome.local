@@ -75,7 +75,8 @@
 										</tr>
 									@endforeach
 									<tr>
-										<th colspan="4" class="text-right">Итого</th>
+										<th>&nbsp;</th>
+										<th colspan="3" class="text-right">Итого</th>
 										<th>@money($basketCost)</th>
 										<th>&nbsp;</th>
 									</tr>

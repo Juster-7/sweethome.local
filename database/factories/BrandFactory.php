@@ -18,7 +18,7 @@ class BrandFactory extends Factory
     {
 		$titles = ['Dior', 'Nike', 'AmPm', 'Roca', 'Ikea', 'H&M', 'Armani', 'Hoff', 'Zara', 'Лемана ПРО'];
         return [
-			'title' => $this->faker->randomElement($titles),
+			'title' => $this->faker->unique()->randomElement($titles),
 			//'slug' => slug заполнятеся автоматически с sluggable
 			'main_text' => FactoryHelper::getFakerHTMLText($this->faker, mt_rand(2, 10)),
         ];

@@ -10,7 +10,7 @@
 			<a href="#add_comment" onclick="document.getElementById('parent_id').value = {{ $comment->id }}" class="reply">Ответить</a> 
 		</div>
 		<p>{{ $comment->text }}</p>
-		@foreach ($comment->children as $child)
+		@foreach ($comment->children()->cursor() as $child)
 			@include('components.comment', ['comment' => $child])
 		@endforeach
 	</div>

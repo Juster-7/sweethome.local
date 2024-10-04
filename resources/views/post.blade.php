@@ -3,12 +3,7 @@
 	<x-slot name="description">descr</x-slot>
 	<x-slot name="keywords">keyw</x-slot>
 	<x-slot name="center">
-	@include('layouts.page-header-post', [
-		'title' => $post->title,
-		'date' => $post->date_show->translatedFormat('d F Y'), 
-		'theme' => $post->theme,
-		'hits' => $post->hits,
-	])
+	@include('layouts.page-header-post')
 		<div class="section">
 			<div class="container">
 				<div class="row">
@@ -89,9 +84,9 @@
 						</div>
 						@foreach($top_posts as $post)
 							<div class="post post-widget">
-								<a class="post-img" href="{{ route('posts') }}/{{ $post->slug }}"><img src="/images/{{ $post->image_name }}" alt></a>
+								<a class="post-img" href="{{ route('posts.post', [ $post->slug ]) }}"><img src="/images/{{ $post->image_name }}" alt></a>
 								<div class="post-body">
-									<h3 class="post-title"><a href="{{ route('posts') }}/{{ $post->slug }}">{{ $post->title }}</a></h3> 
+									<h3 class="post-title"><a href="{{ route('posts.post', [ $post->slug ]) }}">{{ $post->title }}</a></h3> 
 								</div>
 							</div>
 						@endforeach
@@ -101,17 +96,17 @@
 								<h2>Категории</h2> </div>
 							<div class="category-widget">
 								<ul>
-									@foreach($top_categories as $category)
-										<li><a href="{{ route('posts', ['category' => $category->theme]) }}" class="cat-1">{{ $category->theme }}<span>{{ $category->total }}</span></a></li>
+									@foreach($top_categories as $postCategory)										
+										<li><a href="{{ route('posts.postCategory', [ $postCategory->slug ]) }}" class="{{ $postCategory->css_color_class }}">{{ $postCategory->title }}<span>{{ $postCategory->posts_count }}</span></a></li>
 									@endforeach
 								</ul>
 							</div>
 						</div>
 						<div class="aside-widget">
 							<div class="tags-widget">
-								<ul>
-									@foreach($all_categories as $category)
-										<li><a href="{{ route('posts', ['category' => $category->theme]) }}">{{ $category->theme }}</a></li>
+								<ul>								
+									@foreach($all_categories as $postCategory)
+										<li><a href="{{ route('posts.postCategory', [ $postCategory->slug ]) }}">{{ $postCategory->title }}</a></li>
 									@endforeach
 								</ul>
 							</div>

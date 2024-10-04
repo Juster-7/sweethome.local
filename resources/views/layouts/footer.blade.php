@@ -27,10 +27,10 @@
 					<div class="footer-widget">
 						<h3 class="footer-title">Категории</h3>
 						<ul class="footer-links">
-							<li><a href="{{ route('posts') }}">Гостиная</a></li>
-							<li><a href="{{ route('posts') }}">Спальня</a></li>
-							<li><a href="{{ route('posts') }}">Кухня</a></li>
-							<li><a href="{{ route('posts') }}">Ванная</a></li>
+							<li><a href="{{ route('posts.index') }}">Гостиная</a></li>
+							<li><a href="{{ route('posts.index') }}">Спальня</a></li>
+							<li><a href="{{ route('posts.index') }}">Кухня</a></li>
+							<li><a href="{{ route('posts.index') }}">Ванная</a></li>
 						</ul>
 					</div>
 				</div>

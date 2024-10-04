@@ -18,11 +18,11 @@ class CommentController extends Controller
 	}
 	
 	public function redirectToPostAddComments(Post $post) {
-		return redirect()->route('post.add_comment', ['slug' => $post->slug]);
+		return redirect()->route('posts.post.add_comment', [ $post->slug]);
 	}
 	
 	public function redirectToPostComments(Post $post) {
-		return redirect()->route('post.comments', ['slug' => $post->slug]);
+		return redirect()->route('posts.post.comments', [ $post->slug]);
 	}
 	
 	public function delete(Comment $comment) {

@@ -27,15 +27,10 @@ class Product extends Model
 		return $this->belongsToMany(Cart::class)->withPivot('quantity');
 	}
 	
-	public function getProductBySlug($slug) {
-		return $this->where('slug', $slug)->firstOrFail();
-	}
-	
-	public function getProductsByCategoryId(int $id) {
-		return $this->where('category_id', $id)->get();
-	}
-	
 	public function getLastProducts(int $count) {
-		return $this->latest('id')->take($count)->get();
+		return $this->latest('id')
+			->with(['category'])
+			->take($count)
+			->get();
 	}
 }

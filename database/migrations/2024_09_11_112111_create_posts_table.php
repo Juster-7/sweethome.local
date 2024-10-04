@@ -19,7 +19,8 @@ return new class extends Migration
 			$table->string('slug', 255)->unique();
 			$table->string('author', 255);			
 			$table->string('image_name', 255);			
-			$table->string('theme', 255);			
+			$table->unsignedBigInteger('post_category_id');
+			$table->foreign('post_category_id')->references('id')->on('post_categories')->onDelete('cascade');
 			$table->text('intro_text');
 			$table->text('main_text');
 			$table->string('meta_description', 255);

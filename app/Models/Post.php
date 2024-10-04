@@ -21,6 +21,10 @@ class Post extends Model
 		return [ 'slug' => [ 'source' => 'title' ]];
 	}
 	
+	public function postCategory() {
+		return $this->belongsTo(PostCategory::class);
+	}
+	
 	public function comments() {
 		return $this->hasMany(Comment::class);
 	}
@@ -32,13 +36,18 @@ class Post extends Model
 	public function getPost(int $id) {
 		return $this->findOrFail($id);
 	}
-	
-	public function getPostBySlug(string $slug) {
-		return $this->where('slug', $slug)->firstOrFail();
+
+	public function getPosts() {
+		return $this->active()
+			->with(['postCategory'])
+			->latest('date_show')
+			->paginate(config('posts_on_page'))
+			->withQueryString();
 	}
 	
 	public function getLastPosts(int $count) {
 		return $this->active()
+			->with(['postCategory'])
 			->latest('date_show')
 			->take($count)
 			->get();
@@ -51,24 +60,7 @@ class Post extends Model
 			->take($count)
 			->get();
 	}
-	
-	public function getTopCategories(int $count) {
-		return $this->active()
-			->groupBy('theme')
-			->selectRaw('theme, count(*) as total')
-			->orderByDesc('total', 'theme')
-			->take($count)
-			->get();
-	}
-	
-	public function getCategories(int $count) {
-		return $this->active()
-			->distinct()
-			->inRandomOrder()
-			->take($count)
-			->get('theme');
-	}
-	
+		
 	public function incrementHits(): void{
 		$this->increment('hits');
 	}

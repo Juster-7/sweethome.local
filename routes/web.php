@@ -17,10 +17,13 @@ Route::get('/', [IndexController::class, 'index'])->name('index');
 /*
  * Статьи 
  */
-Route::get('/posts', [PostController::class, 'posts'])->name('posts');
-Route::any('/posts/{slug}', [PostController::class, 'post'])->name('post');
-Route::any('/posts/{slug}#comments', [PostController::class, 'post'])->name('post.comments');
-Route::any('/posts/{slug}#add_comment', [PostController::class, 'post'])->name('post.add_comment');
+Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+Route::any('/posts/category', function() { return redirect('/posts'); });
+Route::any('/posts/category/{postCategory:slug}', [PostController::class, 'postCategory'])->name('posts.postCategory');
+Route::any('/posts/post', function() { return redirect('/posts'); });
+Route::any('/posts/post/{post:slug}', [PostController::class, 'post'])->name('posts.post');
+Route::any('/posts/post/{post:slug}#comments', [PostController::class, 'post'])->name('posts.post.comments');
+Route::any('/posts/post/{post:slug}#add_comment', [PostController::class, 'post'])->name('posts.post.add_comment');
 
 /*
  * Комментарии 
@@ -38,9 +41,12 @@ Route::get('/about', [PageController::class, 'about'])->name('about');
  * Магазин 
  */
 Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
-Route::get('/shop/category/{slug}', [ShopController::class, 'category'])->name('shop.category');
-Route::get('/shop/brand/{slug}', [ShopController::class, 'brand'])->name('shop.brand');
-Route::get('/shop/product/{slug}', [ShopController::class, 'product'])->name('shop.product');
+Route::any('/shop/category', function() { return redirect('/shop'); });
+Route::get('/shop/category/{category:slug}', [ShopController::class, 'category'])->name('shop.category');
+Route::any('/shop/brand', function() { return redirect('/shop'); });
+Route::get('/shop/brand/{brand:slug}', [ShopController::class, 'brand'])->name('shop.brand');
+Route::any('/shop/product', function() { return redirect('/shop'); });
+Route::get('/shop/product/{product:slug}', [ShopController::class, 'product'])->name('shop.product');
 
 /*
  * Корзина 

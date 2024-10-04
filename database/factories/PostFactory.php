@@ -17,13 +17,12 @@ class PostFactory extends Factory
      */
 	 
     public function definition() {
-		$themes = ['Спальня', 'Гостиная', 'Ванная', 'Кухня', 'Прихожая', 'Балкон'];
-        return [
+		return [
             'title' => $this->faker->realText(mt_rand(20, 100)),
 			//'slug' => slug заполнятеся автоматически с sluggable
 			'author' => $this->faker->name(),
 			'image_name' => 'post-'.mt_rand(1, 6).'.jpg',
-			'theme' => $this->faker->randomElement($themes),
+			'post_category_id' => mt_rand(1, 10),
 			'intro_text' => $this->faker->realText(mt_rand(50, 100)),
 			'main_text' => FactoryHelper::getFakerHTMLText($this->faker, mt_rand(3, 10)),
 			'meta_description' => $this->faker->realText(mt_rand(10, 200)),

@@ -5,7 +5,7 @@
 				<ul class="page-header-breadcrumb">
 					<li><a href="{{ route('index') }}">Главная</a></li>
 					@if($category)
-					<li><a href="{{ url()->current() }}">{{ $title }}</a></li>					
+					<li><a href="/{{ Request::segment(1) }}">{{ $title }}</a></li>					
 					@else
 					<li>{{ $title }}</li>
 					@endif
