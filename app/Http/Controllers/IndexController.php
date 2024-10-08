@@ -18,9 +18,8 @@ class IndexController extends Controller
 
 	public function index() {
 		$posts = $this->post->getLastPosts(7);
-		$top_posts = $this->post->getTopPosts(4);
 		$products = $this->product->getLastProducts(4);
         
-		return view('index', compact('posts', 'top_posts', 'products'));	
+		return view('index', compact('posts', 'products'));	
 	}	
 }

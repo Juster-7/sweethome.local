@@ -19,7 +19,7 @@ class ProductFactory extends Factory
     public function definition()
     {
 		return [
-			'category_id' => mt_rand(1, 10),
+			'product_category_id' => mt_rand(1, 10),
 			'brand_id' => mt_rand(1, 10),
 			'title' => $this->faker->realText(mt_rand(20, 50)),
 			//'slug' => slug заполнятеся автоматически с sluggable

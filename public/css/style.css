@@ -1023,7 +1023,25 @@
  .category-widget ul li > a.cat-4:hover, .category-widget ul li > a.cat-4:focus {
      color: #8d00ff;
 }
-/*----------------------------*\
+ .category-widget ul li > a.cat-5:hover, .category-widget ul li > a.cat-5:focus {
+     color: red;
+}
+ .category-widget ul li > a.cat-6:hover, .category-widget ul li > a.cat-6:focus {
+     color: yellow;
+}
+ .category-widget ul li > a.cat-7:hover, .category-widget ul li > a.cat-7:focus {
+     color: pink;
+}
+ .category-widget ul li > a.cat-8:hover, .category-widget ul li > a.cat-8:focus {
+     color: green;
+}
+ .category-widget ul li > a.cat-9:hover, .category-widget ul li > a.cat-9:focus {
+     color: blue;
+}
+ .category-widget ul li > a.cat-10:hover, .category-widget ul li > a.cat-10:focus {
+     color: orange;
+}
+	 /*----------------------------*\
 	tags
 \*----------------------------*/
  .tags-widget ul li {

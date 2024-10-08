@@ -23,32 +23,21 @@ class PostController extends Controller
 	
 	public function index() {
 		$posts = $this->post->getPosts();
-		$top_categories = $this->postCategory->getTopCategories(3);		
-		$all_categories = $this->postCategory->getCategories(10); 
 				
-		return view('posts', compact('posts', 'top_categories', 'all_categories'));
+		return view('posts', compact('posts'));
 	}
 	
 	public function postCategory(PostCategory $postCategory){		
 		$posts = $postCategory->posts()->with(['postCategory'])->paginate(config('posts_on_page'))->withQueryString();
-		$top_categories = $this->postCategory->getTopCategories(3);		
-		$all_categories = $this->postCategory->getCategories(10); 
 				
-		return view('posts', compact('posts', 'postCategory', 'top_categories', 'all_categories'));
+		return view('posts', compact('posts', 'postCategory'));
 	}
 	
-    public function post(Post $post, Request $request){		
-		$post->incrementHits();
-		
-		//$comments = $this->comment->getCommentsByPost($post);
-		//$comments_count = $this->comment->getCommentsCountByPost($post);
+    public function post(Post $post){		
+		$post->incrementHits();		
 		$comments = $post->comments()->with(['children'])->whereNull('parent_id')->get();
 		$comments_count = $post->comments->count();
 		
-		$top_posts = $this->post->getTopPosts(3);
-		$top_categories = $this->postCategory->getTopCategories(3);
-		$all_categories = $this->postCategory->getCategories(10);
-		
-		return view('post', compact('post', 'comments', 'comments_count', 'top_posts', 'top_categories', 'all_categories'));
+		return view('post', compact('post', 'comments', 'comments_count'));
 	}	
 }

@@ -3,47 +3,42 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Category;
+use App\Models\ProductCategory;
 use App\Models\Brand;
 use App\Models\Product;
 
 class ShopController extends Controller
 {
-	private $category;
+	private $productCategory;
 	private $brand;
 	private $product;
 	
 	public function __construct() {
-		$this->category = new Category;
+		$this->productCategory = new ProductCategory;
 		$this->brand = new Brand;
 		$this->product = new Product;
 	}
 	
     public function index() {
-		$root_categories = $this->category->getRootCategories();
-		$top_brands = $this->brand->getTopBrands(4);
 		$last_products = $this->product->getLastProducts(9);
-		return view('shop.index', compact('root_categories', 'top_brands', 'last_products'));
+		
+		return view('shop.index', compact('last_products'));
 	}
 	
-	public function category(Category $category) {
-		$root_categories = $this->category->getRootCategories();
-		$top_brands = $this->brand->getTopBrands(4);
-		$products = $category->products()->with(['category'])->get();
-		return view('shop.category', compact('root_categories', 'top_brands', 'category', 'products'));
+	public function productCategory(ProductCategory $productCategory) {
+		$products = $productCategory->products()->with(['productCategory'])->get();
+		
+		return view('shop.product-category', compact('productCategory', 'products'));
 	}
 	
 	public function brand(Brand $brand) {
-		$root_categories = $this->category->getRootCategories();
-		$top_brands = $this->brand->getTopBrands(4);
-		$products = $brand->products()->with(['category'])->get();
-		return view('shop.brand', compact('root_categories', 'top_brands', 'brand', 'products'));
+		$products = $brand->products()->with(['productCategory'])->get();
+		
+		return view('shop.brand', compact('brand', 'products'));
 	}
 	
 	public function product(Product $product) {
-		$root_categories = $this->category->getRootCategories();
-		$top_brands = $this->brand->getTopBrands(4);
-		return view('shop.product', compact('root_categories', 'top_brands', 'product'));
+		return view('shop.product', compact('product'));
 	}
 	
 }

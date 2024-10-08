@@ -5,7 +5,7 @@
 				<a href="{{ route('index') }}" class="logo"><img src="/images/logo4.png" alt></a>
 			</div>
 			<ul class="nav-menu nav navbar-nav">
-				@include('layouts.menu')
+				@include('layouts.header-menu')
 			</ul>
 			<div class="nav-btns">
 				<button class="cart-btn"><a href="{{ route('cart.index') }}"><i class="fa fa-cart"></i></a> <span class="cart-count">5</span></button>

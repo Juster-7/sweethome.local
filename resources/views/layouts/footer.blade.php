@@ -27,10 +27,7 @@
 					<div class="footer-widget">
 						<h3 class="footer-title">Категории</h3>
 						<ul class="footer-links">
-							<li><a href="{{ route('posts.index') }}">Гостиная</a></li>
-							<li><a href="{{ route('posts.index') }}">Спальня</a></li>
-							<li><a href="{{ route('posts.index') }}">Кухня</a></li>
-							<li><a href="{{ route('posts.index') }}">Ванная</a></li>
+							@include('layouts.footer-menu')
 						</ul>
 					</div>
 				</div>

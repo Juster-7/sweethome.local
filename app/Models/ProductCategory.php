@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Category extends Model
+class ProductCategory extends Model
 {
     use HasFactory;
 	use SoftDeletes;
@@ -18,11 +18,11 @@ class Category extends Model
 	}
 	
 	public function children() {
-		return $this->hasMany(Category::class, 'parent_id', 'id');
+		return $this->hasMany(ProductCategory::class, 'parent_id', 'id');
 	}
 	
 	public function parent() {
-		return $this->belongsTo(Category::class, 'parent_id', 'id');
+		return $this->belongsTo(ProductCategory::class, 'parent_id', 'id');
 	}
 	
 	public function products() {

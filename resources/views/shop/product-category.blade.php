@@ -5,27 +5,17 @@
 	<x-slot name="center">
 		@include('layouts.page-header', [
 			'title' => 'Магазин',
-			'category' => $category->title ,
+			'category' => $productCategory->title ,
 		])
 		<div class="section">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-3">
 						<div class="section-row">
-							<h3>Каталог</h3>
-							<ul class="shop-menu-links">
-							@foreach ($root_categories as $category)
-								<li><a href="{{ route('shop.category', [ $category->slug ]) }}" class="{{ (request()->segment(3) == $category->slug) ? 'active' : '' }}">{{ $category->title }}</a></li>
-							@endforeach
-							</ul>
+							@include('shop.components.catalog')
 							<br>
 							<br>
-							<h3>Топ брендов</h3>
-							<ul class="shop-menu-links">
-							@foreach ($top_brands as $brand)
-								<li><a href="{{ route('shop.brand', [ $brand->slug ]) }}" class="{{ (request()->segment(3) == $brand->slug) ? 'active' : '' }}">{{ $brand->title }}</a></li>
-							@endforeach
-							</ul>
+							@include('shop.components.top-brands')
 						</div>
 					</div>
 					<div class="col-md-8">
@@ -35,7 +25,7 @@
 								<div class="post">
 									<a class="post-img" href="{{ route('shop.product', [ $product->slug ]) }}"><img src="/images/post-4.jpg" alt></a>
 									<div class="post-body">
-										<div class="post-meta"><a class="post-category cat-4" href="{{ route('shop.category', [ $product->category->slug ]) }}">{{ $product->category->title }}</a> <span class="post-date fr">@money($product->price) <a href="#" title="В корзину"><i class="fa fa-cart"></i></a></span></div>
+										<div class="post-meta"><a class="post-category cat-4" href="{{ route('shop.productCategory', [ $product->productCategory->slug ]) }}">{{ $product->productCategory->title }}</a> <span class="post-date fr">@money($product->price) <a href="#" title="В корзину"><i class="fa fa-cart"></i></a></span></div>
 										<h3 class="post-title"><a href="{{ route('shop.product', [ $product->slug ]) }}">{{ $product->title }}</a></h3> </div>
 								</div>
 							</div>

@@ -4,10 +4,10 @@
 	<x-slot name="keywords">keyw</x-slot>
 	<x-slot name="center">
 	@include('layouts.page-header-post')
-		<div class="section">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-8">
+	<div class="section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8">
 					<div class="section-row sticky-container">
 						<div class="main-post">
 							{!! $post->main_text !!}
@@ -79,52 +79,20 @@
 				</div>					
 				<div class="col-md-4">
 					<div class="aside-widget">
-						<div class="section-title">
-							<h2>Самое читаемое</h2> 
-						</div>
-						@foreach($top_posts as $post)
-							<div class="post post-widget">
-								<a class="post-img" href="{{ route('posts.post', [ $post->slug ]) }}"><img src="/images/{{ $post->image_name }}" alt></a>
-								<div class="post-body">
-									<h3 class="post-title"><a href="{{ route('posts.post', [ $post->slug ]) }}">{{ $post->title }}</a></h3> 
-								</div>
-							</div>
-						@endforeach
+						@include('components.aside-widget.top-posts')
 					</div>
-						<div class="aside-widget">
-							<div class="section-title">
-								<h2>Категории</h2> </div>
-							<div class="category-widget">
-								<ul>
-									@foreach($top_categories as $postCategory)										
-										<li><a href="{{ route('posts.postCategory', [ $postCategory->slug ]) }}" class="{{ $postCategory->css_color_class }}">{{ $postCategory->title }}<span>{{ $postCategory->posts_count }}</span></a></li>
-									@endforeach
-								</ul>
-							</div>
-						</div>
-						<div class="aside-widget">
-							<div class="tags-widget">
-								<ul>								
-									@foreach($all_categories as $postCategory)
-										<li><a href="{{ route('posts.postCategory', [ $postCategory->slug ]) }}">{{ $postCategory->title }}</a></li>
-									@endforeach
-								</ul>
-							</div>
-						</div>
-						<div class="aside-widget">
-							<div class="section-title">
-								<h2>Архив</h2> </div>
-							<div class="archive-widget">
-								<ul>
-									<li><a href="#">Январь 2024</a></li>
-									<li><a href="#">Февраль 2024</a></li>
-									<li><a href="#">Март 2024</a></li>
-								</ul>
-							</div>
-						</div>
+					<div class="aside-widget">
+						@include('components.aside-widget.top-categories')
 					</div>
-				</div>	
+					<div class="aside-widget">
+						@include('components.aside-widget.all-categories')
+					</div>
+					<div class="aside-widget">
+						@include('components.aside-widget.archive')
+					</div>
+				</div>
 			</div>	
 		</div>	
+	</div>	
 	</x-slot>
 </x-main-layout>

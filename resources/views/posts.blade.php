@@ -38,35 +38,16 @@
 					</div>					
 					<div class="col-md-4">
 						<div class="aside-widget">
-							<div class="section-title">
-								<h2>Категории</h2> </div>
-							<div class="category-widget">
-								<ul>							
-									@foreach($top_categories as $postCategory)										
-										<li><a href="{{ route('posts.postCategory', [ $postCategory->slug ]) }}" class="{{ $postCategory->css_color_class }}">{{ $postCategory->title }}<span>{{ $postCategory->posts_count }}</span></a></li>
-									@endforeach
-								</ul>
-							</div>
+							@include('components.aside-widget.top-posts')
 						</div>
 						<div class="aside-widget">
-							<div class="tags-widget">
-								<ul>								
-									@foreach($all_categories as $postCategory)
-										<li><a href="{{ route('posts.postCategory', [ $postCategory->slug ]) }}">{{ $postCategory->title }}</a></li>
-									@endforeach
-								</ul>
-							</div>
+							@include('components.aside-widget.top-categories')
 						</div>
 						<div class="aside-widget">
-							<div class="section-title">
-								<h2>Архив</h2> </div>
-							<div class="archive-widget">
-								<ul>
-									<li><a href="#">Январь 2024</a></li>
-									<li><a href="#">Февраль 2024</a></li>
-									<li><a href="#">Март 2024</a></li>
-								</ul>
-							</div>
+							@include('components.aside-widget.all-categories')
+						</div>
+						<div class="aside-widget">
+							@include('components.aside-widget.archive')
 						</div>
 					</div>
 				</div>	

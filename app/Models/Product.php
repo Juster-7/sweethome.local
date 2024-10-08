@@ -15,8 +15,8 @@ class Product extends Model
 		return [ 'slug' => [ 'source' => 'title' ]];
 	}
 	
-	public function category() {
-		return $this->belongsTo(Category::class);
+	public function productCategory() {
+		return $this->belongsTo(ProductCategory::class);
 	}
 	
 	public function brand() {
@@ -29,7 +29,7 @@ class Product extends Model
 	
 	public function getLastProducts(int $count) {
 		return $this->latest('id')
-			->with(['category'])
+			->with(['productCategory'])
 			->take($count)
 			->get();
 	}

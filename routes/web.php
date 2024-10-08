@@ -42,7 +42,7 @@ Route::get('/about', [PageController::class, 'about'])->name('about');
  */
 Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
 Route::any('/shop/category', function() { return redirect('/shop'); });
-Route::get('/shop/category/{category:slug}', [ShopController::class, 'category'])->name('shop.category');
+Route::get('/shop/category/{productCategory:slug}', [ShopController::class, 'productCategory'])->name('shop.productCategory');
 Route::any('/shop/brand', function() { return redirect('/shop'); });
 Route::get('/shop/brand/{brand:slug}', [ShopController::class, 'brand'])->name('shop.brand');
 Route::any('/shop/product', function() { return redirect('/shop'); });

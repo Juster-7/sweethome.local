@@ -8,21 +8,14 @@
 	</div>
 	<div class="section-row">
 		<h3>Недавнее</h3>
+		@foreach ($last_posts as $post)	
 		<div class="post post-widget">
-			<a class="post-img" href="blog-post.html"><img src="/images/widget-2.jpg" alt></a>
+			<a class="post-img" href="{{ route('posts.post', [ $post->slug ]) }}"><img src="/images/{{ $post->image_name }}" alt></a>
 			<div class="post-body">
-				<h3 class="post-title"><a href="blog-post.html">Pagedraw UI Builder Turns Your Website Design Mockup Into Code Automatically</a></h3> </div>
+				<h3 class="post-title"><a href="{{ route('posts.post', [ $post->slug ]) }}">{{ $post->title }}</a></h3> 
+			</div>
 		</div>
-		<div class="post post-widget">
-			<a class="post-img" href="blog-post.html"><img src="/images/widget-3.jpg" alt></a>
-			<div class="post-body">
-				<h3 class="post-title"><a href="blog-post.html">Why Node.js Is The Coolest Kid On The Backend Development Block!</a></h3> </div>
-		</div>
-		<div class="post post-widget">
-			<a class="post-img" href="blog-post.html"><img src="/images/widget-4.jpg" alt></a>
-			<div class="post-body">
-				<h3 class="post-title"><a href="blog-post.html">Tell-A-Tool: Guide To Гостиная And Development Tools</a></h3> </div>
-		</div>
+		@endforeach
 	</div>
 	<div class="section-row">
 		<h3>Присоединяйтесь</h3>

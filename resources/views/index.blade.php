@@ -26,17 +26,7 @@
 					@endforeach
 					<div class="col-md-4">
 						<div class="aside-widget">
-							<div class="section-title">
-								<h2>Самые читаемые</h2> 
-							</div>
-							@foreach($top_posts as $post)
-							<div class="post post-widget">
-								<a class="post-img" href="{{ route('posts.post', [ $post->slug ]) }}"><img src="/images/{{ $post->image_name }}" alt></a>
-								<div class="post-body">
-									<h3 class="post-title"><a href="{{ route('posts.post', [ $post->slug ]) }}">{{ $post->title }}</a></h3> 
-								</div>
-							</div>
-							@endforeach							
+							@include('components.aside-widget.top-posts')							
 						</div>					
 					</div>
 				</div>			
@@ -76,7 +66,7 @@
 							<div class="post">
 								<a class="post-img" href="{{ route('shop.product', [ $product->slug ]) }}"><img src="/images/post-4.jpg" alt></a>
 								<div class="post-body">
-									<div class="post-meta"><span class="post-date">@money($product->price)</span> <a class="post-category cat-4 fr" href="{{ route('shop.category', [ $product->category->slug ]) }}">{{ $product->category->title }}</a></div>
+									<div class="post-meta"><span class="post-date">@money($product->price)</span> <a class="post-category cat-4 fr" href="{{ route('shop.productCategory', [ $product->productCategory->slug ]) }}">{{ $product->productCategory->title }}</a></div>
 									<h3 class="post-title"><a href="{{ route('shop.product', [ $product->slug ]) }}">{{ $product->title }}</a></h3> </div>
 							</div>
 						</div>
