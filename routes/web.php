@@ -8,6 +8,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\UserController;
 
 /* 
  * Главная 
@@ -63,9 +64,16 @@ Route::group([
 	Route::post('remove/{product_id}', [CartController::class, 'remove'])->where('product_id', '[0-9]+')->name('remove');
 });
 
-
-
 /* 
  * Поиск 
  */	
 Route::get('/search', [SearchController::class, 'search'])->name('search');
+
+/* 
+ * Личный кабинет пользователя. Регистрация, вход, восстановление пароля 
+ */	
+Route::name('user.')->prefix('user')->group(function () {
+	Auth::routes();
+	Route::any('/', function() { return redirect('user/main'); });
+	Route::get('main', [UserController::class, 'index'])->name('index');
+});

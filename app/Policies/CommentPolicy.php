@@ -20,6 +20,6 @@ class CommentPolicy
      */
     public function delete(?User $user, Comment $comment)
     {
-        return Session::get('access_token') === $comment->access_token;
+        return $user->id === $comment->user->id;
     }
 }

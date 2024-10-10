@@ -21,10 +21,8 @@ class CommentFactory extends Factory
         return [
 			'post_id' => mt_rand(1, 60),
 			'parent_id' => null,
-			'name' => $this->faker->name(),
-			'email' => $this->faker->unique()->safeEmail(),
+			'user_id' => mt_rand(1, 60),			
 			'text' => $this->faker->realText(mt_rand(20, 300)),
-			'access_token' => Str::random(32),
 			'created_at' => $dateTime,
 			'updated_at' => $dateTime,
         ];

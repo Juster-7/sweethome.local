@@ -45,36 +45,30 @@
 					<div class="section-row">
 						<div class="section-title">
 							<h2>Оставить комментарий</h2>
-							<p>Ваш email адрес не будет публиковаться</p>
 						</div>
-						@if($errors->any())
-							@foreach ($errors->all() as $message)
-								<p class="error">{{ $message }}</p>
-							@endforeach
-						@endif
-						<form class="post-reply" name="add_comment" id="add_comment" action="{{ route('comment.add') }}" method="post">
-							@csrf
-							<div class="row">
-								<div class="col-md-4">
-									<div class="form-group"> <span>Имя*</span>
-										<input class="input" type="text" name="name" value="{{ old('name') }}"> 
+						@guest
+							Чтобы оставить комментарий <a href="{{ route('user.login') }}">авторизуйтесь</a> или <a href="{{ route('user.register') }}">зарегистрируйтесь</a>.
+						@else
+							@if($errors->any())
+								@foreach ($errors->all() as $message)
+									<p class="error">{{ $message }}</p>
+								@endforeach
+							@endif
+							<form class="post-reply" name="add_comment" id="add_comment" action="{{ route('comment.add') }}" method="post">
+								@csrf
+								<div class="row">
+									<div class="col-md-12">
+										<div class="form-group">
+											<textarea class="input" name="text" placeholder="Комментарий*">{{ old('text') }}</textarea>
+										</div>
+										<input class="input" type="hidden" name="post_id" id="post_id" value="{{ $post->id }}">
+										<input class="input" type="hidden" name="user_id" id="user_id" value="{{ auth()->user()->id }}">
+										<input class="input" type="hidden" name="parent_id" id="parent_id" value="">
+										<input name="add_comment" class="primary-button" type="submit" value="Отправить">
 									</div>
 								</div>
-								<div class="col-md-4">
-									<div class="form-group"> <span>Email*</span>
-										<input class="input" type="email" name="email" value="{{ old('email') }}"> 
-									</div>
-								</div>
-								<div class="col-md-12">
-									<div class="form-group">
-										<textarea class="input" name="text" placeholder="Комментарий*">{{ old('text') }}</textarea>
-									</div>
-									<input class="input" type="hidden" name="post_id" id="post_id" value="{{ $post->id }}">
-									<input class="input" type="hidden" name="parent_id" id="parent_id" value="">
-									<input name="add_comment" class="primary-button" type="submit" value="Отправить">
-								</div>
-							</div>
-						</form>
+							</form>
+						@endif							
 					</div>
 				</div>					
 				<div class="col-md-4">

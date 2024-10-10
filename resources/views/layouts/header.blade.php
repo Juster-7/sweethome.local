@@ -8,8 +8,15 @@
 				@include('layouts.header-menu')
 			</ul>
 			<div class="nav-btns">
-				<button class="cart-btn"><a href="{{ route('cart.index') }}"><i class="fa fa-cart"></i></a> <span class="cart-count">5</span></button>
-				<button class="aside-btn"><i class="fa fa-user"></i></button>
+				<button class="cart-btn" title="Корзина"><a href="{{ route('cart.index') }}"><i class="fa fa-cart"></i></a> <span class="cart-count">@if ($cart_count>0) {{ $cart_count }} @endif</span></button>
+				@guest
+					<button class="aside-btn-login" title="Вход"><a href="{{ route('user.login') }}"<i class="fa fa-sign-in"></i></a></button>
+					@if (Route::has('user.register'))
+						<button class="aside-btn-register" title="Регистрация"><a href="{{ route('user.register') }}"<i class="fa fa-user-plus"></i></a></button>
+					@endif
+				@else
+					<button class="aside-btn-user-main" title="Личный кабинет"><a href="{{ route('user.index') }}"<i class="fa fa-user"></i></a></button>
+				@endif
 				<button class="aside-btn"><i class="fa fa-bars"></i></button>
 				<button class="search-btn"><i class="fa fa-search"></i></button>
 				<form name="search" method="get" action="{{ route('search') }}">

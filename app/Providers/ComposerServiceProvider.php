@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\PostCategory;
 use App\Models\ProductCategory;
 use App\Models\Brand;
+use App\Models\Cart;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -15,12 +16,14 @@ class ComposerServiceProvider extends ServiceProvider
 	private $post;
 	private $productCategory;
 	private $brand;
+	private $cart;
 	
 	public function __construct() {
 		$this->postCategory = new PostCategory;
 		$this->post = new Post;
 		$this->productCategory = new ProductCategory;
 		$this->brand = new Brand;
+		$this->cart = new Cart;
 	}
 	
     /**
@@ -41,10 +44,13 @@ class ComposerServiceProvider extends ServiceProvider
     public function boot()
     {
         View::composer('*', function($view) {
-			$view->with(['last_posts' => $this->post->getLastPosts(4)]);
+			$view->with([
+				'last_posts' => $this->post->getLastPosts(4),
+				'cart_count' => $this->cart->getCart()->getCount(),
+			]);
 		});		
 		View::composer(['layouts.header-menu', 'layouts.footer-menu'], function($view) {
-			$view->with(['menu' => $this->postCategory->getTopCategories(4)]);
+			$view->with(['menu' => $this->postCategory->getTopCategories(3)]);
 		});
 		View::composer(['index', 'posts', 'post'], function($view) {
 			$view->with(['top_posts' => $this->post->getTopPosts(4)]);

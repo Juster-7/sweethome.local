@@ -26,7 +26,7 @@
 									<div class="post-body">
 										<div class="post-meta">
 											<form action="{{ route('cart.add', ['id' => $product->id]) }}" method="post">
-												<a class="post-category cat-4" href="{{ route('shop.productCategory', [ $product->productCategory->slug ]) }}">{{ $product->productCategory->title }}</a>
+												<a class="post-category cat-4" href="{{ route('shop.productCategory', [ $product->productCategory->slug ]) }}">{{ $product->productCategory->title }}</a> {{ $product->brand->title }}
 												<span class="post-date-big fr"><nobr>@money($product->price)</nobr> 
 													@csrf
 													<input type="text" name="quantity" id="quantity" value="1" style="width:30px;margin-left:20px;">

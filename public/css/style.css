@@ -775,6 +775,11 @@
  .error {
      color: red;
 	 font-weight:bold;
+} 
+
+.success {
+     color: #000;
+	 font-weight:bold;
 }
  .post.post-thumb .post-title {
      font-size: 22px;
@@ -881,6 +886,14 @@
      padding-right: 40px;
 }
  .post-author .media .media-left .media-object {
+     width:120px;
+     border-radius: 50%;
+}
+
+ .post-author .media .media-center {
+     padding-right: 40px;
+}
+ .post-author .media .media-center .media-object {
      width:120px;
      border-radius: 50%;
 }

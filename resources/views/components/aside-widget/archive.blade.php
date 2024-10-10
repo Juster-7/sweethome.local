@@ -1,3 +1,5 @@
+<?
+/*
 <div class="section-title">
 	<h2>Архив</h2> 
 </div>
@@ -8,3 +10,4 @@
 		<li><a href="#">Март 2024</a></li>
 	</ul>
 </div>
+*/

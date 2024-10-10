@@ -24,6 +24,10 @@ class Cart extends Model
 		return $cart;
 	}
 	
+	public function getCount() {
+		return $this->getCart()->products()->sum('cart_product.quantity');	
+	}
+	
 	public function changeProductQuantity($product_id, $quantity): void {
 		if($quantity != 0){
 			if ($this->products->contains($product_id)) {
@@ -39,7 +43,7 @@ class Cart extends Model
 		}
 	}
 	
-	public function remove($product_id) {
+	public function remove($product_id): void {
 		$this->products()->detach($product_id);
 	}
 }

@@ -32,16 +32,19 @@ class CartController extends Controller
 	
 	public function increase($product_id, $quantity = 1) {
 		$this->cart->getCart()->changeProductQuantity($product_id, $quantity);
+		
 		return redirect()->route('cart.index');
 	}
 
 	public function decrease($product_id, $quantity = -1) {
 		$this->cart->getCart()->changeProductQuantity($product_id, $quantity);		
+		
 		return redirect()->route('cart.index');
 	}
 
 	public function remove($product_id, $quantity = -1) {
 		$this->cart->getCart()->remove($product_id);		
+		
 		return redirect()->route('cart.index');
 	}		
 }

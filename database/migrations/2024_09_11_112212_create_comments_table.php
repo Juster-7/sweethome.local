@@ -18,10 +18,9 @@ return new class extends Migration
 			$table->unsignedBigInteger('post_id');
 			$table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
 			$table->integer('parent_id')->nullable();
-			$table->string('name', 255);
-			$table->string('email', 255);
+			$table->unsignedBigInteger('user_id');
+			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 			$table->text('text');
-			$table->string('access_token', 32);
 			$table->softDeletes();
             $table->timestamps();
         });

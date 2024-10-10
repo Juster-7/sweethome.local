@@ -35,7 +35,7 @@ class PostController extends Controller
 	
     public function post(Post $post){		
 		$post->incrementHits();		
-		$comments = $post->comments()->with(['children'])->whereNull('parent_id')->get();
+		$comments = $post->comments()->with(['children', 'user'])->whereNull('parent_id')->get();
 		$comments_count = $post->comments->count();
 		
 		return view('post', compact('post', 'comments', 'comments_count'));

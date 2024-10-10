@@ -17,29 +17,27 @@ class CommentController extends Controller
 		$this->post = new Post;
 	}
 	
-	public function redirectToPostAddComments(Post $post) {
-		return redirect()->route('posts.post.add_comment', [ $post->slug]);
+	public function redirectToPostAddComments($post) {
+		return redirect()->route('posts.post.add_comment', $post->slug);
 	}
 	
-	public function redirectToPostComments(Post $post) {
-		return redirect()->route('posts.post.comments', [ $post->slug]);
+	public function redirectToPostComments($post) {
+		return redirect()->route('posts.post.comments', $post->slug);
 	}
 	
 	public function delete(Comment $comment) {
-		$post = $comment->getPostByComment();
+		$post = $comment->post;
 		$comment->deleteOrFail();
 		return $this->redirectToPostComments($post);
 	}
 	
 	//public function store(AddCommentRequest $request) {
 	public function store(Request $request) {
-		$this->setAccessToken($request);
 		$post = $this->post->getPost($request->post_id);
 	
 		$validator = Validator::make($request->all(), [
 			'post_id' => 'required|numeric',
-			'name' => 'required|alpha|max:100',
-			'email' => 'required|email',
+			'user_id' => 'required|numeric',
 			'text' => 'required|max:250',
 			'parent_id' => 'numeric|nullable',
 		]);
@@ -48,19 +46,11 @@ class CommentController extends Controller
 		$validated = $validator->validated();		
 		$comment = new Comment();
 		$comment->post_id = $validated['post_id'];
-		$comment->name = $validated['name'];
-		$comment->email = $validated['email'];
+		$comment->user_id = $validated['user_id'];
 		$comment->text = $validated['text'];
 		$comment->parent_id = $validated['parent_id'];
-		$comment->access_token = $request->session()->get('access_token');
 		$comment->save();
 		
 		return $this->redirectToPostComments($post);
-	}
-	
-	public function setAccessToken(Request $request) {
-		if ($request->session()->missing('access_token')) {
-			$request->session()->put('access_token', Str::random(32));
-		}
 	}
 }
