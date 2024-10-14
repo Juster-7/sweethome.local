@@ -11,6 +11,8 @@ class Product extends Model
     use HasFactory;
 	use Sluggable;
 	
+	//protected $fillable = ['post_id', 'name', 'email', 'text', 'parent_id'];
+	
 	public function sluggable():array {
 		return [ 'slug' => [ 'source' => 'title' ]];
 	}

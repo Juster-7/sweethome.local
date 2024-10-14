@@ -9,8 +9,8 @@ class CartController extends Controller
 {
 	private $cart;
 	
-	public function __construct() {
-		$this->cart = new Cart;
+	public function __construct(Cart $cart) {
+		$this->cart = $cart;
 	}
     
 	public function index(Request $request) {

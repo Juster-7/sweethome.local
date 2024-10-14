@@ -13,10 +13,10 @@ class ShopController extends Controller
 	private $brand;
 	private $product;
 	
-	public function __construct() {
-		$this->productCategory = new ProductCategory;
-		$this->brand = new Brand;
-		$this->product = new Product;
+	public function __construct(ProductCategory $productCategory, Brand $brand, Product $product) {
+		$this->productCategory = $productCategory;
+		$this->brand = $brand;
+		$this->product = $product;
 	}
 	
     public function index() {

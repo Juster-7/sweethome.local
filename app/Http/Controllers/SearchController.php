@@ -11,8 +11,8 @@ class SearchController extends Controller
 {
 	private $post;
 	
-	public function __construct() {
-		$this->post = new Post;
+	public function __construct(Post $post) {
+		$this->post = $post;
 	}
 	
     public function search(searchRequest $request) {

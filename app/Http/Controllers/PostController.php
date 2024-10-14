@@ -15,10 +15,10 @@ class PostController extends Controller
 	private $post;
 	private $comment;
 	
-	public function __construct() {
-		$this->postCategory = new PostCategory;
-		$this->post = new Post;
-		$this->comment = new Comment;
+	public function __construct(PostCategory $postCategory, Post $post, Comment $comment) {
+		$this->postCategory = $postCategory;
+		$this->post = $post;
+		$this->comment = $comment;
 	}
 	
 	public function index() {

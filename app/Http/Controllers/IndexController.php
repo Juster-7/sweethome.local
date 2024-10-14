@@ -11,9 +11,9 @@ class IndexController extends Controller
 	private $post;
 	private $product;
 	
-	public function __construct() {
-		$this->post = new Post;
-		$this->product = new Product;
+	public function __construct(Post $post, Product $product) {
+		$this->post = $post;
+		$this->product = $product;
 	}
 
 	public function index() {

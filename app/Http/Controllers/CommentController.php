@@ -13,8 +13,8 @@ class CommentController extends Controller
 {
 	private $post;
 	
-	public function __construct() {
-		$this->post = new Post;
+	public function __construct(Post $post) {
+		$this->post = $post;
 	}
 	
 	public function redirectToPostAddComments($post) {
