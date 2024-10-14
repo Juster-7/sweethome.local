@@ -7,11 +7,9 @@ use App\Models\Cart;
 
 class CartController extends Controller
 {
-	private $cart;
-	
-	public function __construct(Cart $cart) {
-		$this->cart = $cart;
-	}
+	public function __construct(
+		protected Cart $cart
+	) {}
     
 	public function index(Request $request) {
         $products = $this->cart->getCart()->products;            

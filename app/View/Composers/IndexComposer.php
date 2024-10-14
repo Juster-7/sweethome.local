@@ -7,11 +7,9 @@ use Illuminate\View\View;
 
 class IndexComposer
 {
-	private $post;
-	
-	public function __construct(Post $post) {
-		$this->post = $post;
-	}
+	public function __construct(
+		protected Post $post
+	) {}
 	
     public function compose(View $view) {
        	$view->with(['top_posts' => $this->post->getTopPosts(4)]);

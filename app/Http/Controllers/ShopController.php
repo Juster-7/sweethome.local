@@ -9,15 +9,11 @@ use App\Models\Product;
 
 class ShopController extends Controller
 {
-	private $productCategory;
-	private $brand;
-	private $product;
-	
-	public function __construct(ProductCategory $productCategory, Brand $brand, Product $product) {
-		$this->productCategory = $productCategory;
-		$this->brand = $brand;
-		$this->product = $product;
-	}
+	public function __construct(
+		protected ProductCategory $productCategory,
+		protected Brand $brand,
+		protected Product $product
+	) {}
 	
     public function index() {
 		$last_products = $this->product->getLastProducts(9);

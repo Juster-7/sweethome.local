@@ -9,11 +9,9 @@ use App\Models\Post;
 
 class SearchController extends Controller
 {
-	private $post;
-	
-	public function __construct(Post $post) {
-		$this->post = $post;
-	}
+	public function __construct(
+		protected Post $post
+	) {}
 	
     public function search(searchRequest $request) {
 		$search = $request->validated()['search'];

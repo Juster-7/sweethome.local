@@ -8,13 +8,10 @@ use App\Models\Product;
 
 class IndexController extends Controller
 {
-	private $post;
-	private $product;
-	
-	public function __construct(Post $post, Product $product) {
-		$this->post = $post;
-		$this->product = $product;
-	}
+	public function __construct(
+		protected Post $post,
+		protected Product $product
+	) {}
 
 	public function index() {
 		$posts = $this->post->getLastPosts(7);

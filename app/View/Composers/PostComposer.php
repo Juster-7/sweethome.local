@@ -8,13 +8,10 @@ use Illuminate\View\View;
 
 class PostComposer
 {
-	private $post;
-	private $postCategory;
-	
-	public function __construct(Post $post, PostCategory $postCategory) {
-		$this->post = $post;
-		$this->postCategory = $postCategory;
-	}
+	public function __construct(
+		protected Post $post,
+		protected PostCategory $postCategory
+	) {}
 	
     public function compose(View $view) {
        	$view->with([

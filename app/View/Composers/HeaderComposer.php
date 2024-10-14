@@ -8,13 +8,10 @@ use Illuminate\View\View;
 
 class HeaderComposer
 {
-	private $post;
-	private $cart;
-	
-	public function __construct(Post $post, Cart $cart) {
-		$this->post = $post;
-		$this->cart = $cart;
-	}
+	public function __construct(
+		protected Post $post,
+		protected Cart $cart
+	) {}
 	
     public function compose(View $view) {
        	$view->with([

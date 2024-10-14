@@ -11,11 +11,9 @@ use App\Models\Post;
 
 class CommentController extends Controller
 {
-	private $post;
-	
-	public function __construct(Post $post) {
-		$this->post = $post;
-	}
+	public function __construct(
+		protected Post $post
+	) {}
 	
 	public function redirectToPostAddComments($post) {
 		return redirect()->route('posts.post.add_comment', $post->slug);

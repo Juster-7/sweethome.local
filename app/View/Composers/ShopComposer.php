@@ -8,13 +8,10 @@ use Illuminate\View\View;
 
 class ShopComposer
 {
-	private $productCategory;
-	private $brand;
-	
-	public function __construct(ProductCategory $productCategory, Brand $brand) {
-		$this->productCategory = $productCategory;
-		$this->brand = $brand;
-	}
+	public function __construct(
+		protected ProductCategory $productCategory,
+		protected Brand $brand
+	) {}
 	
     public function compose(View $view) {
        	$view->with([

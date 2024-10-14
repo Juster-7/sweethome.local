@@ -11,15 +11,11 @@ use App\Models\Comment;
 
 class PostController extends Controller
 {
-	private $postCategory;
-	private $post;
-	private $comment;
-	
-	public function __construct(PostCategory $postCategory, Post $post, Comment $comment) {
-		$this->postCategory = $postCategory;
-		$this->post = $post;
-		$this->comment = $comment;
-	}
+	public function __construct(
+		protected PostCategory $postCategory,
+		protected Post $post,
+		protected Comment $comment
+	) {}
 	
 	public function index() {
 		$posts = $this->post->getPosts();
