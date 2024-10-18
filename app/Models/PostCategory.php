@@ -22,14 +22,16 @@ class PostCategory extends Model
 	}
 	
 	public function getTopCategories(int $count) {
-		return $this->withCount('posts')
+		return $this
+			->withCount('posts')
 			->orderByDesc('posts_count')
 			->take($count)
 			->get();	
 	}
 	
-	public function getCategories(int $count) {
-		return $this->distinct()
+	public function getRandomCategories(int $count) {
+		return $this->select('title', 'slug')
+			->distinct()
 			->inRandomOrder()
 			->take($count)
 			->get();

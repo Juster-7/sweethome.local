@@ -15,18 +15,19 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-			$table->string('title', 255);
-			$table->string('slug', 255)->unique();
-			$table->string('author', 255);			
-			$table->string('image_name', 255);			
-			$table->unsignedBigInteger('post_category_id');
-			$table->foreign('post_category_id')->references('id')->on('post_categories')->onDelete('cascade');
-			$table->text('intro_text');
-			$table->text('main_text');
 			$table->string('meta_description', 255);
 			$table->string('meta_keyword', 255);
+			$table->string('title', 255);
+			$table->string('slug', 255)->unique();
+			$table->string('title_image', 255);	
+			$table->text('intro_text');
+			$table->text('main_text');
 			$table->integer('hits');
 			$table->dateTime('date_show');
+			$table->unsignedBigInteger('user_id');
+			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+			$table->unsignedBigInteger('post_category_id');
+			$table->foreign('post_category_id')->references('id')->on('post_categories')->onDelete('cascade');
 			$table->softDeletes();
             $table->timestamps();
         });

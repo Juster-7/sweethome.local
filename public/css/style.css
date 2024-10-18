@@ -1291,3 +1291,10 @@ span.cart-count {
     text-align: center;
     font-size: 15px;
 }
+
+div.alert-success {
+	width:100%;
+	background:#d7f3e3;
+	border:1px solid #c7eed8;
+	border-radius: 5px;
+}

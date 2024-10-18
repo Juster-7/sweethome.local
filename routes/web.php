@@ -76,4 +76,7 @@ Route::name('user.')->prefix('user')->group(function () {
 	Auth::routes();
 	Route::any('/', function() { return redirect('user/main'); });
 	Route::get('main', [UserController::class, 'index'])->name('index');
+	Route::get('profile', [UserController::class, 'profileIndex'])->name('profile');
+	Route::post('profile', [UserController::class, 'profilePhotoStore'])->name('profile.photo.store');
+	Route::post('profile/photo/delete', [UserController::class, 'profilePhotoDelete'])->name('profile.photo.delete');
 });

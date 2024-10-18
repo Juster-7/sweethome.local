@@ -24,8 +24,19 @@ class Cart extends Model
 		return $cart;
 	}
 	
-	public function getCount() {
-		return $this->getCart()->products()->sum('cart_product.quantity');	
+	public function getProductsWithQuantityCount() {
+		return $this->products()->sum('cart_product.quantity');	
+	}	
+	
+	public function getTotalCost() {
+		$totalCost = 0;
+		$products = $this->products;
+		//dd($products);
+		foreach($products as $product) {
+			$totalCost = $totalCost + $product->price * $product->pivot->quantity;
+		}
+		
+		return $totalCost;	
 	}
 	
 	public function changeProductQuantity($product_id, $quantity): void {

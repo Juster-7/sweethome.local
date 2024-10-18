@@ -13,8 +13,8 @@ class CartController extends Controller
     
 	public function index(Request $request) {
         $products = $this->cart->getCart()->products;            
-        
-		return view('cart.index', compact('products'));
+        $totalCost = $this->cart->getCart()->getTotalCost();
+		return view('cart.index', compact('products','totalCost'));
     }
 	
 	public function checkout() {

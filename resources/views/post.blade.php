@@ -17,10 +17,12 @@
 					<div class="section-row">
 						<div class="post-author">
 							<div class="media">
-								<div class="media-left"> <img class="media-object" src="/images/author.png" alt> </div>
+								<div class="media-left"> 
+									<img class="media-object" src="{{ $post->user->getProfilePhotoUrl() }}" alt> 
+								</div>
 								<div class="media-body">
 									<div class="media-heading">
-										<h3>{{ $post->author }}</h3> 
+										<h3>{{ $post->user->name }}</h3> 
 									</div>
 									<ul class="author-social">
 										<li><a href="#"><i class="fa fa-facebook"></i></a></li>

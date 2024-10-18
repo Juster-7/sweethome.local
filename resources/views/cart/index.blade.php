@@ -13,9 +13,6 @@
 					<div class="col-md-12">
 						<div class="section-row">
 							@if (count($products))
-								@php
-									$basketCost = 0;
-								@endphp
 								<table class="table table-bordered">
 									<tr>
 										<th>№</th>
@@ -26,18 +23,12 @@
 										<th>&nbsp;</th>
 									</tr>
 									@foreach($products as $product)
-										@php
-											$itemPrice = $product->price;
-											$itemQuantity =  $product->pivot->quantity;
-											$itemCost = $itemPrice * $itemQuantity;
-											$basketCost = $basketCost + $itemCost;
-										@endphp
 										<tr>
 											<td>{{ $loop->iteration }}</td>
 											<td>
 												<a href="{{ route('shop.product', [$product->slug]) }}">{{ $product->title }}</a>
 											</td>
-											<td>@money($itemPrice)</td>
+											<td>@money($product->price)</td>
 											<td>
 												<table style="width:70px;">
 													<tr>
@@ -50,7 +41,7 @@
 															</form>
 														</td>
 														<td width="60%" align="center">
-															<span class="mx-1">{{ $itemQuantity }}</span>
+															<span class="mx-1">{{ $product->pivot->quantity }}</span>
 														</td>
 														<td>
 															<form action="{{ route('cart.increase', [ 'product_id' => $product->id ]) }}" method="post">
@@ -63,7 +54,7 @@
 													</tr>
 												</table>
 											</td>
-											<td>@money($itemCost)</td>
+											<td>@money($product->price * $product->pivot->quantity)</td>
 											<td>
 												<form action="{{ route('cart.remove', [ 'product_id' => $product->id ]) }}" method="post">
 													@csrf
@@ -77,7 +68,7 @@
 									<tr>
 										<th>&nbsp;</th>
 										<th colspan="3" class="text-right">Итого</th>
-										<th>@money($basketCost)</th>
+										<th>@money($totalCost)</th>
 										<th>&nbsp;</th>
 									</tr>
 								</table>

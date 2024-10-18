@@ -24,8 +24,11 @@ class ModelServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Model::preventLazyLoading(
-			!$this->app->isProduction()
-		);
-    }
+        Model::preventLazyLoading(!$this->app->isProduction());
+		Model::preventAccessingMissingAttributes();
+		Model::preventSilentlyDiscardingAttributes();
+    
+		// Включает все 3 параметра одной командой
+		//Model::shouldBeStrict();
+	}
 }

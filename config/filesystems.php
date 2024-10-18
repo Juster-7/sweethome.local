@@ -41,6 +41,13 @@ return [
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
+		
+		'profile-photos' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/user-content/profile-photos'),
+            'url' => env('APP_URL').'/storage/profile-photos',
+            'visibility' => 'public',
+        ],
 
         's3' => [
             'driver' => 's3',
@@ -68,6 +75,7 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
+        public_path('storage/profile-photos') => storage_path('app/public/user-content/profile-photos'),
     ],
 
 ];

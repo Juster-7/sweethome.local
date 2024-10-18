@@ -1,5 +1,7 @@
 <div class="media">
-	<div class="media-left"> <img class="media-object" src="/images/avatar.png" alt> </div>
+	<div class="media-left"> 
+		<img class="media-object" src="{{ $comment->user->getProfilePhotoUrl() }}" alt> 
+	</div>
 	<div class="media-body">
 		<div class="media-heading">
 			<h4>{{ $comment->user->name }}</h4> 

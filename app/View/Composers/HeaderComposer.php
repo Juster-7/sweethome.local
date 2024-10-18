@@ -16,7 +16,7 @@ class HeaderComposer
     public function compose(View $view) {
        	$view->with([
 			'last_posts' => $this->post->getLastPosts(4),
-			'cart_count' => $this->cart->getCart()->getCount(),
+			'cart_count' => $this->cart->getCart()->getProductsWithQuantityCount(),
 		]);
     }
 }

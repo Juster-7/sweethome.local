@@ -17,7 +17,7 @@ class PostComposer
        	$view->with([
 				'top_posts' => $this->post->getTopPosts(4),
 				'top_categories' => $this->postCategory->getTopCategories(5),
-				'all_categories' => $this->postCategory->getCategories(10),
+				'all_categories' => $this->postCategory->getRandomCategories(10),
 			]);
     }
 }

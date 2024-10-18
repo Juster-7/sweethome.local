@@ -10,7 +10,7 @@
 		<h3>Недавнее</h3>
 		@foreach ($last_posts as $post)	
 		<div class="post post-widget">
-			<a class="post-img" href="{{ route('posts.post', [ $post->slug ]) }}"><img src="/images/{{ $post->image_name }}" alt></a>
+			<a class="post-img" href="{{ route('posts.post', [ $post->slug ]) }}"><img src="/images/{{ $post->title_image }}" alt></a>
 			<div class="post-body">
 				<h3 class="post-title"><a href="{{ route('posts.post', [ $post->slug ]) }}">{{ $post->title }}</a></h3> 
 			</div>

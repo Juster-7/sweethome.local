@@ -22,7 +22,7 @@
 								@endif									
 									<div class="{{ $class1 }}">
 										<div class="post {{ $class2 }}">								
-											<a class="post-img" href="{{ route('posts.post', [ $post->slug ]) }}"><img src="/images/{{ $post->image_name }}" alt></a>
+											<a class="post-img" href="{{ route('posts.post', [ $post->slug ]) }}"><img src="/images/{{ $post->title_image }}" alt></a>
 											<div class="post-body">
 												<div class="post-meta"> <a class="post-category {{ $post->postCategory->css_color_class }}" href="{{ route('posts.postCategory', [ $post->postCategory->slug ]) }}">{{ $post->postCategory->title }}</a> <span class="post-date">{{ $post->date_show->translatedFormat('d F Y') }}</span> <span class="post-hits"><img src="/images/eye-symbol.png">{{ $post->hits }}</span></div>
 												<h3 class="post-title"><a href="{{ route('posts.post', [ $post->slug ]) }}">{{ $post->title }}</a></h3> 
