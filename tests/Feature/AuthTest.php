@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
-
 class AuthTest extends TestCase
 {
 	use RefreshDatabase;

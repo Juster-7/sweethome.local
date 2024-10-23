@@ -25,7 +25,7 @@ return new class extends Migration
 			$table->text('main_text')->nullable();
 			$table->string('image', 50)->nullable();
 			$table->decimal('price', 10, 2)->default(0);
-			$table->integer('quantity');
+			$table->integer('quantity')->default(0);
 			$table->softDeletes();
             $table->timestamps();
         });

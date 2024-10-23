@@ -7,7 +7,6 @@ use App\Models\PostCategory;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
-
 class PostsTest extends TestCase
 {
 	use DatabaseMigrations;
@@ -19,12 +18,6 @@ class PostsTest extends TestCase
         
 		$this->get('/posts')->assertSee($post->title);
     }
-	
-	/**
-     * Test Driven Dev
-     *
-     * @return void
-     */
 	 
 	/** @test */
     public function test_function_gettopposts_works() {
