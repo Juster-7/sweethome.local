@@ -11,15 +11,8 @@ class CommentPolicy
 {
     use HandlesAuthorization;
 
-    /**
-     * Determine whether the user can delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Comment  $comment
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function delete(User $user, Comment $comment)
-    {
-        return $user->isAdmin() || $user->id === $comment->user->id;
+    public function delete(User $user, Comment $comment) {
+        // return $user->isAdmin() || $user->id === $comment->user->id;
+        return $user->id === $comment->user->id;
     }
 }

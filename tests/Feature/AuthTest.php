@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -17,6 +18,11 @@ class AuthTest extends TestCase
     public function test_user_registration_works() {
 		Event::fake();
 	
+		Role::create([ 'name' => 'Администратор' ]);
+        Role::create([ 'name' => 'Модератор' ]);
+        Role::create([ 'name' => 'Автор' ]);
+        Role::create([ 'name' => 'Пользователь' ]);
+		
 		$user = [
 			'name' => 'Иванов Иван',
 			'email' => 'test@email.ru',

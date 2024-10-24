@@ -3,41 +3,34 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-//use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Contracts\Validation\Validator;
 
 class AddCommentRequest extends FormRequest
 {
-	//use Validator;
-	/*
-	protected function failedValidation(Validator $validator) {
-		//return redirect()->route('post.add_comment', ['slug' => $post->slug])->withInput()->withErrors($validator->errors());
-		redirect()->route('index');
-	}
-	*/
-	
-	/**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
+    public function authorize() {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, mixed>
-     */
-    public function rules()
-    {
+    public function rules() {
         return [
-            'post_id' => 'required|numeric',
-			'name' => 'required|alpha|max:100',
-			'email' => 'required|email',
+            'post_id' => 'required|integer|exists:posts,id',
+            'user_id' => 'required|integer||exists:users,id',
 			'text' => 'required|max:250',
-			'parent_id' => 'numeric|nullable',
+			'parent_id' => 'nullable|integer|exists:comments,id',
+        ];
+    }
+	
+	public function failedValidation(Validator $validator) {
+		throw new HttpResponseException(
+			back()->withInput()->withErrors($validator->errors())->withFragment('#add_comment')
+		);
+	}
+	
+	public function messages() {
+        return [
+			'text.required' => 'Текст комментария должен быть заполнен',
+			'text.max' => 'Длина комментария не должна превышать 250 символов',
         ];
     }
 }

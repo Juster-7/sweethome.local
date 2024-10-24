@@ -10,48 +10,39 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserController;
 
-/* 
- * Главная 
- */
+/** Главная */
 Route::get('/', [IndexController::class, 'index'])->name('index');
 
-/*
- * Статьи 
- */
+/** Статьи */
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 Route::any('/posts/category', function() { return redirect('/posts'); });
 Route::any('/posts/category/{postCategory:slug}', [PostController::class, 'postCategory'])->name('posts.postCategory');
 Route::any('/posts/post', function() { return redirect('/posts'); });
 Route::any('/posts/post/{post:slug}', [PostController::class, 'post'])->name('posts.post');
-Route::any('/posts/post/{post:slug}#comments', [PostController::class, 'post'])->name('posts.post.comments');
-Route::any('/posts/post/{post:slug}#add_comment', [PostController::class, 'post'])->name('posts.post.add_comment');
 
-/*
- * Комментарии 
- */
+/** Комментарии */
 Route::get('/comments/{comment}/delete', [CommentController::class, 'delete'])->name('comment.delete')->middleware('can:delete,comment');
 Route::any('/comments/add', [CommentController::class, 'store'])->name('comment.add');
 
-/* 
- * Статические страницы 
- */
+/** Статические страницы */
 Route::get('/contacts', [PageController::class, 'contacts'])->name('contacts');
 Route::get('/about', [PageController::class, 'about'])->name('about');
 
-/* 
- * Магазин 
- */
-Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
-Route::any('/shop/category', function() { return redirect('/shop'); });
-Route::get('/shop/category/{productCategory:slug}', [ShopController::class, 'productCategory'])->name('shop.productCategory');
-Route::any('/shop/brand', function() { return redirect('/shop'); });
-Route::get('/shop/brand/{brand:slug}', [ShopController::class, 'brand'])->name('shop.brand');
-Route::any('/shop/product', function() { return redirect('/shop'); });
-Route::get('/shop/product/{product:slug}', [ShopController::class, 'product'])->name('shop.product');
+/** Магазин */
+Route::group([
+	'as' => 'shop.',
+	'prefix' => 'shop'
+], function (){
+	Route::get('/', [ShopController::class, 'index'])->name('index');
+	Route::any('category', function() { return redirect('/shop'); });
+	Route::get('category/{productCategory:slug}', [ShopController::class, 'productCategory'])->name('productCategory');
+	Route::any('brand', function() { return redirect('/shop'); });
+	Route::get('brand/{brand:slug}', [ShopController::class, 'brand'])->name('brand');
+	Route::any('product', function() { return redirect('/shop'); });
+	Route::get('product/{product:slug}', [ShopController::class, 'product'])->name('product');
+});
 
-/*
- * Корзина 
- */
+/** Корзина */
 Route::group([
 	'as' => 'cart.',
 	'prefix' => 'cart'
@@ -64,14 +55,10 @@ Route::group([
 	Route::post('remove/{product_id}', [CartController::class, 'remove'])->where('product_id', '[0-9]+')->name('remove');
 });
 
-/* 
- * Поиск 
- */	
+/** Поиск */	
 Route::get('/search', [SearchController::class, 'search'])->name('search');
 
-/* 
- * Личный кабинет пользователя. Регистрация, вход, восстановление пароля 
- */	
+/** Личный кабинет пользователя. Регистрация, вход, восстановление пароля */	
 Route::group([
 	'as' => 'user.',
 	'prefix' => 'user'
@@ -82,4 +69,4 @@ Route::group([
 		Route::get('profile', [UserController::class, 'profileIndex'])->name('profile');
 		Route::post('profile', [UserController::class, 'profilePhotoStore'])->name('profile.photo.store');
 		Route::post('profile/photo/delete', [UserController::class, 'profilePhotoDelete'])->name('profile.photo.delete');
-	});
+});
