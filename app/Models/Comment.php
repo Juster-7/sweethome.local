@@ -11,6 +11,8 @@ class Comment extends Model
     use HasFactory;
 	use SoftDeletes;
 	
+	protected $fillable = ['post_id', 'user_id', 'text', 'parent_id'];		
+	
 	protected static function boot() {
 		parent::boot();
 		

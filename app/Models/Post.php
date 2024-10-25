@@ -14,8 +14,6 @@ class Post extends Model
 	use SoftDeletes;
 	use Sluggable;
 	
-	protected $fillable = ['post_id', 'name', 'email', 'text', 'parent_id'];	
-	
 	protected $casts = [ 'date_show' => 'date' ];
 	
 	public function sluggable():array {

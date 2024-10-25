@@ -14,9 +14,14 @@ class PostsTest extends TestCase
 	use DatabaseMigrations;
     
 	/** @test */
-    public function test_user_can_browse_posts() {
-		Role::create([ 'name' => 'Администратор' ]);
-		User::factory()->create(['role_id' => 1]);
+    public function test_user_can_browse_posts_successfully() {
+		Role::factory()->create();
+		User::create([
+			'role_id' => 1,
+			'name' => 'Иванов Иван',
+			'email' => 'test@email.ru',
+			'password' => 'password',
+		]);
 		PostCategory::factory()->create();
 		$post = Post::factory()->create([
 			'post_category_id' => 1,
@@ -27,9 +32,14 @@ class PostsTest extends TestCase
     }
 	 
 	/** @test */
-    public function test_function_gettopposts_works() {
-		Role::create([ 'name' => 'Администратор' ]);
-		User::factory()->create(['role_id' => 1]);
+    public function test_function_gettopposts_works_successfully() {
+		Role::factory()->create();
+		User::create([
+			'role_id' => 1,
+			'name' => 'Иванов Иван',
+			'email' => 'test@email.ru',
+			'password' => 'password',
+		]);
 		PostCategory::factory()->create();
 		Post::factory()->count(50)->create([
 			'post_category_id' => 1,

@@ -15,13 +15,10 @@ class AuthTest extends TestCase
 	use RefreshDatabase;
     
 	/** @test */
-    public function test_user_registration_works() {
+    public function test_user_registered_successfully() {
 		Event::fake();
 	
-		Role::create([ 'name' => 'Администратор' ]);
-        Role::create([ 'name' => 'Модератор' ]);
-        Role::create([ 'name' => 'Автор' ]);
-        Role::create([ 'name' => 'Пользователь' ]);
+		Role::factory()->count(4)->create();
 		
 		$user = [
 			'name' => 'Иванов Иван',
@@ -46,7 +43,7 @@ class AuthTest extends TestCase
     }
 	
 	/** @test */
-    public function test_user_registration_without_name_validates() {
+    public function test_user_registration_without_name_validated() {
 		Event::fake();
 	
 		$user = [

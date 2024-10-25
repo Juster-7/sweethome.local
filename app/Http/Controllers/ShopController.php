@@ -35,6 +35,5 @@ class ShopController extends Controller
 	
 	public function product(Product $product) {
 		return view('shop.product', compact('product'));
-	}
-	
+	}	
 }
