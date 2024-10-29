@@ -18,7 +18,7 @@
 						<div class="post-author">
 							<div class="media">
 								<div class="media-left"> 
-									<img class="media-object" src="{{ $post->user->getProfilePhotoUrl() }}" alt> 
+									<img class="media-object" src="{{ $post->user->profilePhotoUrl() }}" alt> 
 								</div>
 								<div class="media-body">
 									<div class="media-heading">

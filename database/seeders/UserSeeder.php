@@ -20,8 +20,7 @@ class UserSeeder extends Seeder
 			'name' => 'Алексей Шелег',
 			'email' => 'q@q.q',
 			'role_id' => 1,
-			'password' => Hash::make('11111111'),
-			'photo' => 'N7sTnTGzaBJoiZP2yNwsB3U578iULuNGxxGNzh3q.jpg',
+			'password' => Hash::make('11111111')
 		]);
         User::factory()->count(99)->create();        
     }

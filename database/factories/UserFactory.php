@@ -5,13 +5,14 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
-use Storage;
+use App\Traits\ProfilePhotoStorage;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
  */
 class UserFactory extends Factory
 {
+	use ProfilePhotoStorage;
     /**
      * Define the model's default state.
      *
@@ -20,10 +21,9 @@ class UserFactory extends Factory
     public function definition()
     {
 		$userName = $this->faker->name();
-		$fileName = Str::random(40).'.jpg';
-		$url = 'https://ui-avatars.com/api/?background='.str_replace('#','',$this->faker->hexcolor()).'&size=120&name='.$userName;
-		$content = http::get($url)->body();
-		Storage::disk('profile-photos')->put($fileName, $content);
+		$fileName = Str::random(40).'.jpg';		
+		$image = $this->createFakeProfilePhotoImage($userName);
+		$this->saveProfilePhotoFile($fileName, $image);
 		
         return [
             'name' => $userName,

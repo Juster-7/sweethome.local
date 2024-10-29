@@ -21,7 +21,7 @@ Route::any('/posts/post', function() { return redirect('/posts'); });
 Route::any('/posts/post/{post:slug}', [PostController::class, 'post'])->name('posts.post');
 
 /** Комментарии */
-Route::get('/comments/{comment}/delete', [CommentController::class, 'delete'])->name('comment.delete')->middleware('can:delete,comment');
+Route::get('/comments/{comment}/delete', [CommentController::class, 'delete'])->name('comment.delete')->can('delete', 'comment');
 Route::any('/comments/add', [CommentController::class, 'store'])->name('comment.add');
 
 /** Статические страницы */

@@ -12,7 +12,9 @@ class CommentController extends Controller
 {
 	public function __construct(
 		protected Comment $comment
-	) {}
+	) {
+		//$this->middleware('can:delete,comment')->only('delete');
+	}
 	
 	public function delete(Comment $comment) {
 		$comment->deleteOrFail();

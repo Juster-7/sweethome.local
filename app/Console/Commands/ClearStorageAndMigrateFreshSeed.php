@@ -29,14 +29,17 @@ class ClearStorageAndMigrateFreshSeed extends Command
 	private function clearStorage() {
 		$storage = Storage::disk('profile-photos');
 		$this->info('Найдено файлов: '.count($storage->files('')));
-		$this->info('Удаляю файлы...');
+		$bar = $this->output->createProgressBar(count($storage->files('')));
+		$this->info('Удаляю файлы... ');
+		$bar->start();
 		$count_deleted = 0;
 		foreach ($storage->files('') as $file) {
-			if($file!='N7sTnTGzaBJoiZP2yNwsB3U578iULuNGxxGNzh3q.jpg'){
-				$storage->delete($file);
-				$count_deleted++;
-			}
+			$storage->delete($file);
+			$count_deleted++;
+			$bar->advance();
 		}
+		$this->newLine();
+		$bar->finish();
 		$this->info('Удалено файлов: '.$count_deleted);		
 	}
 }

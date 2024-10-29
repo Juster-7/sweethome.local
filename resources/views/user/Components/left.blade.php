@@ -2,7 +2,7 @@
 	<div class="media">
 		<div class="media-left"> 
 			<a href="{{ route('user.profile') }}" title="Редактировать фото">
-				<img class="media-object" src="{{ Auth()->user()->getProfilePhotoUrl() }}" alt>
+				<img class="media-object" src="{{ Auth()->user()->profilePhotoUrl() }}" alt>
 			</a> 
 		</div>
 		<br>

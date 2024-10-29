@@ -3,27 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Intervention\Image\Laravel\Facades\Image;
 use App\Http\Requests\ImageUploadRequest;
+use App\Models\User;
+use App\Traits\ProfilePhotoStorage;
 use Storage;
 
 class UserController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
+	use ProfilePhotoStorage;
+	
+	protected $user;
+    
+	public function __construct() {
+		$this->middleware('auth');
+		
+		$this->middleware( function ($request, $next) {
+			$this->user = Auth()->user();
+			return $next($request);
+		});				
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index()
     {
 		return view('user.index');
@@ -33,24 +32,20 @@ class UserController extends Controller
     {
         return view('user.profile');
     }
-	
-	public function profilePhotoStore(ImageUploadRequest $request) {
-		$profilePhotoName = $request->file('profilephoto')->hashName();
 		
-		$image = Image::read($request->file('profilephoto'));
-		$image->coverDown(120, 120);
-		if(!empty(Auth()->user()->photo)&&(Storage::disk('profile-photos')->exists(Auth()->user()->photo)))
-			Storage::disk('profile-photos')->delete(Auth()->user()->photo);
-		Storage::disk('profile-photos')->put($profilePhotoName, (string) $image->encode());		
-		Auth()->user()->update(['photo' => $profilePhotoName]);
+	public function profilePhotoStore(ImageUploadRequest $request) {		
+		$image = $this->createProfilePhotoImage($request->file('profilephoto'));
+		$profilePhotoName = $this->user->photo ?? $request->file('profilephoto')->hashName();
+		$this->saveProfilePhotoFile($profilePhotoName, $image);
+		$this->user->update(['photo' => $profilePhotoName]);
 		
 		return back()->with('success', 'Фото успешно обновлено!');
     }
 	
 	public function profilePhotoDelete() {
-		if(!empty(Auth()->user()->photo)&&(Storage::disk('profile-photos')->exists(Auth()->user()->photo))) {
-			Storage::disk('profile-photos')->delete(Auth()->user()->photo);
-			Auth()->user()->update(['photo' => null]);
+		if($this->profilePhotoExists($this->user->photo)) {
+			$this->deleteProfilePhotoFile($this->user->photo);
+			$this->user->update(['photo' => null]);
 		}
 		
 		return back()->with('success', 'Фото успешно удалено!');

@@ -8,12 +8,13 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Laravel\Sanctum\HasApiTokens;
-use Storage;
+use App\Traits\ProfilePhotoStorage;
 
 class User extends Authenticatable //implements MustVerifyEmail
 {
     use HasFactory, Notifiable, HasApiTokens;
-
+	use ProfilePhotoStorage;
+	
     protected $fillable = [
         'name',
         'email',
@@ -43,6 +44,10 @@ class User extends Authenticatable //implements MustVerifyEmail
 		return $this->hasMany(Post::class);
 	}
 	
+	public function isAdmin() {			
+		return $this->role_id === 1;	
+	}
+	
 	public function sendPasswordResetNotification($token) {
         $notification = new ResetPassword($token);
         $notification->createUrlUsing(function ($user, $token) {
@@ -54,16 +59,7 @@ class User extends Authenticatable //implements MustVerifyEmail
         $this->notify($notification);
     }
 	
-	public function getProfilePhotoUrl() {
-		if (!empty($this->photo)&&(Storage::disk('profile-photos')->exists($this->photo)))
-			$photoUrl = Storage::disk('profile-photos')->url($this->photo);
-		else 
-			$photoUrl = '/images/profile-photo.png';
-			
-		return $photoUrl;	
-	}
-	
-	public function isAdmin() {			
-		return $this->role_id === 1;	
+	public function profilePhotoUrl() {
+		return $this->getProfilePhotoUrl($this->photo);	
 	}
 }

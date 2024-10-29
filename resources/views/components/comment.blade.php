@@ -1,6 +1,6 @@
 <div class="media">
 	<div class="media-left"> 
-		<img class="media-object" src="{{ $comment->user->getProfilePhotoUrl() }}" alt> 
+		<img class="media-object" src="{{ $comment->user->profilePhotoUrl() }}" alt> 
 	</div>
 	<div class="media-body">
 		<div class="media-heading">
@@ -10,7 +10,7 @@
 				@can('delete', $comment)
 				<a href="{{ route('comment.delete', ['comment' => $comment]) }}" class="delete">Удалить</a>
 				@endcan
-				<a href="#add_comment" onclick="document.getElementById('parent_id').value = {{ $comment->id }}" class="reply">Ответить</a> 
+				<a href="#add_comment" onclick="document.getElementById('parent_id').value = {{ $comment->id }}; document.getElementById('add_comment').focus();" class="reply">Ответить</a> 
 			@endauth
 		</div>
 		<p>{{ $comment->text }}</p>
