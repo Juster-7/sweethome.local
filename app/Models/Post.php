@@ -10,9 +10,7 @@ use Illuminate\Support\Carbon;
 
 class Post extends Model
 {
-    use HasFactory;
-	use SoftDeletes;
-	use Sluggable;
+    use HasFactory, SoftDeletes, Sluggable;
 	
 	protected $casts = [ 'date_show' => 'date' ];
 	
@@ -59,6 +57,7 @@ class Post extends Model
 	public function getTopPosts(int $count) {
 		return $this
 			->active()
+			->with(['postCategory'])
 			->latest('hits')
 			->take($count)
 			->get();

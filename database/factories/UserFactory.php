@@ -5,20 +5,16 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
-use App\Traits\ProfilePhotoStorage;
+use App\Traits\HasProfilePhoto;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
  */
 class UserFactory extends Factory
 {
-	use ProfilePhotoStorage;
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
-    public function definition()
+	use HasProfilePhoto;
+    
+	public function definition()
     {
 		$userName = $this->faker->name();
 		$fileName = Str::random(40).'.jpg';		

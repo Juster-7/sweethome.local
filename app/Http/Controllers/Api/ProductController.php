@@ -9,11 +9,11 @@ use App\Http\Controllers\Controller as Controller;
 use App\Models\Product;
 use App\Http\Resources\ProductResource;
 use Illuminate\Http\JsonResponse;
-use App\Traits\Api\SendResponse;
+use App\Traits\Api\HasSendResponse;
    
 class ProductController extends Controller
 {
-	use SendResponse;
+	use HasSendResponse;
 	
 	public function __construct(
 		protected Product $product

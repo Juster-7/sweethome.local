@@ -617,6 +617,9 @@
  .page-header .post-meta {
      margin: 15px 0px;
 }
+ .post-meta-widget  {
+     padding-bottom: 8px;
+}
  .page-header .post-meta .post-date {
      color: #eceef2;
 }
@@ -827,6 +830,10 @@
 }
  .post.post-row .post-title {
      margin-bottom: 15px;
+}
+ .post-title-widget{
+     font-size: 18px;
+     margin-bottom: 0px;
 }
 /*=========================================================
 	POST PAGE

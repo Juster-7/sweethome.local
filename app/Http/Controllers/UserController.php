@@ -5,12 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\ImageUploadRequest;
 use App\Models\User;
-use App\Traits\ProfilePhotoStorage;
+use App\Traits\HasProfilePhoto;
 use Storage;
 
 class UserController extends Controller
 {
-	use ProfilePhotoStorage;
+	use HasProfilePhoto;
 	
 	protected $user;
     

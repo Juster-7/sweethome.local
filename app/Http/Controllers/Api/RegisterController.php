@@ -10,11 +10,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Validator;
 use Illuminate\Http\JsonResponse;
-use App\Traits\Api\SendResponse;
+use App\Traits\Api\HasSendResponse;
    
 class RegisterController extends Controller
 {
-	use SendResponse;
+	use HasSendResponse;
     
 	public function __construct(
 		protected User $user

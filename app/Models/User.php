@@ -8,12 +8,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Laravel\Sanctum\HasApiTokens;
-use App\Traits\ProfilePhotoStorage;
+use App\Traits\HasProfilePhoto;
 
 class User extends Authenticatable //implements MustVerifyEmail
 {
-    use HasFactory, Notifiable, HasApiTokens;
-	use ProfilePhotoStorage;
+    use HasFactory, Notifiable, HasApiTokens, HasProfilePhoto;
 	
     protected $fillable = [
         'name',

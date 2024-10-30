@@ -5,11 +5,11 @@ namespace App\Http\Requests\Api;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
-use App\Traits\Api\SendResponse;
+use App\Traits\Api\HasSendResponse;
 
 class ProductStoreRequest extends FormRequest
 {
-	use SendResponse;
+	use HasSendResponse;
 	
     public function authorize() {
         return true;
