@@ -17,10 +17,10 @@ class Comment extends Model
 		parent::boot();
 		
 		static::deleting(function ($instance) {
-			$instance->children->each->delete();
+			$instance->load('children')->children->each->delete();
 		});
 		static::restoring(function ($instance) {
-			$instance->children->each->restore();
+			$instance->load('children')->children->each->restore();
 		});
 	}
 	

@@ -10,7 +10,7 @@
 				@can('delete', $comment)
 				<a href="{{ route('comment.delete', ['comment' => $comment]) }}" class="delete">Удалить</a>
 				@endcan
-				<a href="#add_comment" onclick="document.getElementById('parent_id').value = {{ $comment->id }}; document.getElementById('add_comment').focus();" class="reply">Ответить</a> 
+				<a href="add_comment" onclick="document.getElementById('parent_id').value = {{ $comment->id }}; document.getElementById('add_comment_textarea').focus(); return false;" class="reply">Ответить</a> 
 			@endauth
 		</div>
 		<p>{{ $comment->text }}</p>

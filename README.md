@@ -20,3 +20,4 @@
 <p>- Решение проблемы N+1 добавлением ->with(Model) к запросу</p>
 <p>- Отслеживание выполнения запросов к БД (проблема N+1) - Model::preventLazyLoading()</p>
 <p>- Отслеживание корректной работы с данными (Model::preventAccessingMissingAttributes(), Model::preventSilentlyDiscardingAttributes())</p>
+<p>- Логирование действий пользователей на сайте через middleware LogSiteActivity</p>

@@ -36,7 +36,7 @@
 					</div>
 					<div class="section-row" id="comments">
 						<div class="section-title">
-							<h2>{{ $comments_count }} {{ trans_choice('комментарий|комментария|комментариев', $comments_count) }}</h2> 
+							<h2>{{ $post->comments_count }} {{ trans_choice('комментарий|комментария|комментариев', $post->comments_count) }}</h2> 
 						</div>
 						<div class="post-comments">
 							@foreach($comments as $comment)										
@@ -61,7 +61,7 @@
 								<div class="row">
 									<div class="col-md-12">
 										<div class="form-group">
-											<textarea class="input" name="text" placeholder="Комментарий*">{{ old('text') }}</textarea>
+											<textarea class="input" id='add_comment_textarea' name="text" placeholder="Комментарий*">{{ old('text') }}</textarea>
 										</div>
 										<input class="input" type="hidden" name="post_id" id="post_id" value="{{ $post->id }}">
 										<input class="input" type="hidden" name="user_id" id="user_id" value="{{ auth()->user()->id }}">

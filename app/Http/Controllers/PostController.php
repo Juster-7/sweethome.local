@@ -10,15 +10,9 @@ use App\Models\PostCategory;
 use App\Models\Comment;
 
 class PostController extends Controller
-{
-	public function __construct(
-		protected PostCategory $postCategory,
-		protected Post $post,
-		protected Comment $comment
-	) {}
-	
-	public function index() {
-		$posts = $this->post->getPosts();
+{	
+	public function index(Post $post) {
+		$posts = $post->getPosts();
 				
 		return view('posts', compact('posts'));
 	}
@@ -30,10 +24,10 @@ class PostController extends Controller
 	}
 	
     public function post(Post $post){		
-		$post->incrementHits();		
+		$post->incrementHits();
+		$post->loadCount(['comments']);	
 		$comments = $post->comments()->with(['children', 'user'])->whereNull('parent_id')->get();
-		$comments_count = $post->comments->count();
 		
-		return view('post', compact('post', 'comments', 'comments_count'));
+		return view('post', compact('post', 'comments'));
 	}	
 }

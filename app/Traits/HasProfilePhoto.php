@@ -42,7 +42,7 @@ trait HasProfilePhoto
 			->create(120, 120)
 			->fill(str_replace('#','',$this->faker->hexcolor()))
 			->text($username, 60, 60, function (FontFactory $font) {
-				$font->filename('C:\WebServer\domains\sweethome.local\public\fonts\cour.ttf');
+				$font->filename(public_path('\fonts\cour.ttf'));
 				$font->size(60);
 				$font->color('000');
 				$font->align('center');

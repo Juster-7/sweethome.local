@@ -30,8 +30,8 @@ class Post extends Model
 		return $this->hasMany(Comment::class);
 	}
 	
-	public function scopeActive($q) {
-		return $q->where('date_show', '<', Carbon::now());
+	public function scopeActive($query): void {
+		$query->where('date_show', '<', Carbon::now());
 	}
 	
 	public function getPost(int $id) {

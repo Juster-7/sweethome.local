@@ -47,6 +47,10 @@ class User extends Authenticatable //implements MustVerifyEmail
 		return $this->role_id === 1;	
 	}
 	
+	public function profilePhotoUrl() {
+		return $this->getProfilePhotoUrl($this->photo);	
+	}
+	
 	public function sendPasswordResetNotification($token) {
         $notification = new ResetPassword($token);
         $notification->createUrlUsing(function ($user, $token) {
@@ -57,8 +61,4 @@ class User extends Authenticatable //implements MustVerifyEmail
         });
         $this->notify($notification);
     }
-	
-	public function profilePhotoUrl() {
-		return $this->getProfilePhotoUrl($this->photo);	
-	}
 }
