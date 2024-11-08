@@ -14,7 +14,11 @@ class Product extends Model
 	protected $fillable = ['product_category_id', 'brand_id', 'title', 'slug', 'intro_text', 'main_text', 'image', 'price', 'quantity'];
 	
 	public function sluggable():array {
-		return [ 'slug' => [ 'source' => 'title' ]];
+		return [ 'slug' => [ 
+			'source' => 'title',
+			'onUpdate' => true
+			]
+		];
 	}
 	
 	public function productCategory() {

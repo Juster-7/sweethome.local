@@ -14,7 +14,11 @@ class Brand extends Model
 	use Sluggable;
 
 	public function sluggable():array {
-		return [ 'slug' => [ 'source' => 'title' ]];
+		return [ 'slug' => [ 
+			'source' => 'title',
+			'onUpdate' => true
+			]
+		];
 	}
 	
 	public function products() {

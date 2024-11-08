@@ -17,7 +17,7 @@ return new class extends Migration
 		    $table->id();
 			$table->string('title', 100);
             $table->string('slug', 150)->unique();
-			$table->string('css_color_class', 20)->nullable();
+			$table->string('css_color', 20)->nullable();
 			$table->softDeletes();
 			$table->timestamps();
         });

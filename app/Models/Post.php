@@ -6,16 +6,32 @@ use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Carbon;
+use Orchid\Filters\Filterable;
+use Orchid\Screen\AsSource;
 
 class Post extends Model
 {
     use HasFactory, SoftDeletes, Sluggable;
+	use AsSource;
+	use Filterable;
+	
+	protected $fillable = ['meta_description', 'meta_keyword', 'post_category_id', 'user_id', 'title', 'intro_text', 'main_text', 'date_show'];	
 	
 	protected $casts = [ 'date_show' => 'date' ];
 	
+	protected $allowedSorts = [
+		'id',
+		'title',
+		'hits',
+		'created_at',
+	];
+	
 	public function sluggable():array {
-		return [ 'slug' => [ 'source' => 'title' ]];
+		return [ 'slug' => [ 
+			'source' => 'title',
+			'onUpdate' => true
+			]
+		];
 	}
 	
 	public function postCategory() {
@@ -31,7 +47,7 @@ class Post extends Model
 	}
 	
 	public function scopeActive($query): void {
-		$query->where('date_show', '<', Carbon::now());
+		$query->where('date_show', '<', now());
 	}
 	
 	public function getPost(int $id) {

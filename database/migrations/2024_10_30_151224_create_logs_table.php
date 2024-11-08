@@ -18,7 +18,7 @@ return new class extends Migration
             $table->decimal('duration')->nullable();
             $table->integer('user_id')->nullable();
             $table->ipAddress('ip')->nullable();
-            $table->string('url')->nullable();
+            $table->string('url', 2000)->nullable();
             $table->string('method')->nullable();
             $table->string('input')->nullable();
             $table->string('agent')->nullable();

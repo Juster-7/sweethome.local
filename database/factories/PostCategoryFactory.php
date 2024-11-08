@@ -19,7 +19,7 @@ class PostCategoryFactory extends Factory
         $titles = ['Ванная', 'Кухня', 'Гостиная', 'Спальня', 'Балкон', 'Прихожая', 'Декор', 'Туалет', 'Детская', 'Дизайн'];
         return [
 			'title' => $this->faker->unique()->randomElement($titles),
-			'css_color_class' => 'cat-'.$this->faker->unique()->numberBetween(1,10),
+			'css_color' => $this->faker->hexcolor(),
 			//'slug' => slug заполнятеся автоматически с sluggable
         ];
     }

@@ -10,7 +10,7 @@
 	<link type="text/css" rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}" />
 	<link type="text/css" rel="stylesheet" href="{{ asset('/css/font-awesome.min.css') }}">
 	<link type="text/css" rel="stylesheet" href="{{ asset('/css/style.css') }}" /> 
-	
+	@include('layouts.styles')
 	<link rel="icon" href="/favicon.ico">
 	<link rel="icon" href="/images/favicons/favicon-32x32.png" type="image/svg+xml">
 	<link rel="apple-touch-icon" href="/images/favicons/apple-touch-icon.png">

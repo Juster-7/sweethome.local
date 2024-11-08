@@ -14,7 +14,7 @@
 										<div class="post post-thumb">
 											<a class="post-img" href="{{ route('posts.post', [ $post->slug ]) }}"><img src="{{ asset('/images/'.$post->title_image) }}" alt></a>
 											<div class="post-body">
-												<div class="post-meta"> <a class="post-category {{ $post->postCategory->css_color_class }}" href="{{ route('posts.postCategory', [ $post->postCategory->slug ]) }}">{{ $post->postCategory->title }}</a> <span class="post-date">{{ $post->date_show->translatedFormat('d F Y') }}</span> <span class="post-hits"><img src="/images/eye-symbol-white.png"> {{ $post->hits }}</span></div>
+												<div class="post-meta"> <a class="post-category cat-{{ $post->postCategory->id }}" href="{{ route('posts.postCategory', [ $post->postCategory->slug ]) }}">{{ $post->postCategory->title }}</a> <span class="post-date">{{ $post->date_show->translatedFormat('d F Y') }}</span> <span class="post-hits"><img src="/images/eye-symbol-white.png"> {{ $post->hits }}</span></div>
 												<h3 class="post-title"><a href="{{ route('posts.post', [ $post->slug ]) }}">{{ $post->title }}</a></h3> 
 											</div>
 										</div>
@@ -42,7 +42,7 @@
 								<div class="post">
 									<a class="post-img" href="{{ route('posts.post', [ $post->slug ]) }}"><img src="{{ asset('/images/'.$post->title_image) }}" alt></a>
 									<div class="post-body">
-										<div class="post-meta"> <a class="post-category {{ $post->postCategory->css_color_class }}" href="{{ route('posts.postCategory', [ $post->postCategory->slug ]) }}">{{ $post->postCategory->title }}</a> <span class="post-date">{{ $post->date_show->translatedFormat('d F Y') }}</span> <span class="post-hits fr"><img src="/images/eye-symbol.png"> {{ $post->hits }}</span></div>
+										<div class="post-meta"> <a class="post-category cat-{{ $post->postCategory->id }}" href="{{ route('posts.postCategory', [ $post->postCategory->slug ]) }}">{{ $post->postCategory->title }}</a> <span class="post-date">{{ $post->date_show->translatedFormat('d F Y') }}</span> <span class="post-hits fr"><img src="/images/eye-symbol.png"> {{ $post->hits }}</span></div>
 										<h3 class="post-title"><a href="{{ route('posts.post', [ $post->slug ]) }}">{{ $post->title }}</a></h3> </div>
 								</div>
 							</div>
