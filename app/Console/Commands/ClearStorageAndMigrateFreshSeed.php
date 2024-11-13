@@ -19,7 +19,12 @@ class ClearStorageAndMigrateFreshSeed extends Command
 		$this->info('Запуск php artisan migrate:fresh...');
 		$this->call('migrate:fresh');
 		$this->info('Запуск php artisan db:seed...');
-		$this->call('db:seed');
+		$this->call('db:seed');		
+		$this->info('Создание учетной записи администратора для Orchid...');
+		$this->info('Запуск php artisan orchid:admin Администратор w@w.w 22222222');
+		$this->callSilently('orchid:admin', ['name' => 'Администратор', 'email' => 'w@w.w', 'password' => '22222222']);
+		$this->info('Учетная запись успешно создана.');
+		$this->info('');	
 		$time_end = microtime(true);
 		$this->info('Данные сайта обновлены: '.number_format($time_end - $time_start, 2).' секунд.');
         

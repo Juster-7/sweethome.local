@@ -16,84 +16,69 @@ class ApiProductsTest extends TestCase
 {
 	use DatabaseMigrations;
 	
-	/** @test */
-    public function test_products_retrieved_successfully() {
-		ProductCategory::factory()->create();
-		Brand::factory()->create();
-		Product::factory()->create([ 
-			'title' => 'Название 1', 
-			'product_category_id' => 1, 
-			'brand_id' => 1, 
-			'price' => 5, 
-		]);
-		Product::factory()->create([ 
-			'title' => 'Название 2', 
-			'product_category_id' => 1, 
-			'brand_id' => 1,
-			'price' => 10.5,			
-		]);
+	protected $headers;
+	protected $productCategory;
+	protected $brand;
 		
-		Role::create([ 'name' => 'Администратор' ]);
-		$user = User::create([
-			'role_id' => 1,
-			'name' => 'Иванов Иван',
-			'email' => 'test@email.ru',
-			'password' => Hash::make('password'),
-		]);
-		$token = $user->createToken('access_token')->plainTextToken;
+	protected function setUp():void {
+		parent::setUp();
 		
-		$headers = [
+		$this->headers = $this->makeHeadersWithUserToken();
+		$this->productCategory = ProductCategory::factory()->create();
+		$this->brand = Brand::factory()->create();
+	}	
+
+	public function makeHeadersWithUserToken() {
+		$user = $this->createUser();
+		$token = $this->createUserToken($user);
+		
+		return [
 			'Accept' => 'application/json',
 			'Authorization' => "Bearer $token"
 		];
-		
-		$expected_response = [
-            'success' => true,
-            'message' => 'Products retrieved successfully',
-            'data'    => [
-				[ 'created_at' => Date('d/m/Y'), 'id' => 1, 'price' => 5, 'title' => 'Название 1', 'updated_at' => Date('d/m/Y') ],
-				[ 'created_at' => Date('d/m/Y'), 'id' => 2, 'price' => 10.5, 'title' => 'Название 2', 'updated_at' => Date('d/m/Y') ]
-			]
-        ]; 
-				
-		return $this->withHeaders($headers)->json('get', '/api/products')
-			->assertStatus(200)
-			->assertJson( $expected_response )
-			->assertJsonStructure([
-				'data' => [[
-					'id',
-					'title',
-					'price',
-					'created_at',
-					'updated_at',
-				]]
-			]
-		);		
-    }
+	}
 	
+	public function createUser() {
+		return User::factory()
+			->for(Role::factory()->create())
+			->create([
+				'name' => 'Иванов Иван',
+				'email' => 'test@email.ru',
+				'password' => Hash::make('password'),
+			]);
+	}
+
+	public function createUserToken($user) {
+		return $user->createToken('access_token')->plainTextToken;
+	}	
+	
+	public function createProduct() {
+		Product::factory()
+			->for($this->productCategory)
+			->for($this->brand)
+			->create([
+				'title' => 'Часы Certina',
+				'price' => 35.5,
+			]);
+	}	
+
+	public function createSecondProduct() {
+		Product::factory()
+			->for($this->productCategory)
+			->for($this->brand)
+			->create([
+				'title' => 'Часы Rolex',
+				'price' => 75,
+			]);
+	}
+
 	/** @test */
-    public function test_product_created_successfully() {
-		Role::create([ 'name' => 'Администратор' ]);
-		$user = User::create([
-			'role_id' => 1,
-			'name' => 'Иванов Иван',
-			'email' => 'test@email.ru',
-			'password' => Hash::make('password'),
-		]);
-		$token = $user->createToken('access_token')->plainTextToken;
-		
-		$headers = [
-			'Accept' => 'application/json',
-			'Authorization' => "Bearer $token"
-		];
-		
-		ProductCategory::factory()->create();
-		Brand::factory()->create();
+    public function test_product_created_successfully() {		
 		$product = [
 			'title' => 'Часы Certina',
 			'price' => 35.5,
-			'product_category_id' => 1,
-			'brand_id' => 1,
+			'product_category_id' => $this->productCategory->id,
+			'brand_id' => $this->brand->id,
 		];
 		
 		$expected_response = [
@@ -108,34 +93,47 @@ class ApiProductsTest extends TestCase
 			]
         ]; 
 				
-		return $this->withHeaders($headers)->json('post', '/api/products', $product)
+		return $this->withHeaders($this->headers)->json('post', '/api/products', $product)
 			->assertStatus(201)
 			->assertJson($expected_response);		
     }
 	
 	/** @test */
-    public function test_product_create_without_title_validated() {
-		Role::create([ 'name' => 'Администратор' ]);
-		$user = User::create([
-			'role_id' => 1,
-			'name' => 'Иванов Иван',
-			'email' => 'test@email.ru',
-			'password' => Hash::make('password'),
-		]);
-		$token = $user->createToken('access_token')->plainTextToken;
+    public function test_products_retrieved_successfully() {		
+		$this->createProduct();
+		$this->createSecondProduct();
 		
-		$headers = [
-			'Accept' => 'application/json',
-			'Authorization' => "Bearer $token"
-		];
-		
-		ProductCategory::factory()->create();
-		Brand::factory()->create();
+		$expected_response = [
+            'success' => true,
+            'message' => 'Products retrieved successfully',
+            'data'    => [
+				[ 'created_at' => Date('d/m/Y'), 'id' => 1, 'price' => 35.5, 'title' => 'Часы Certina', 'updated_at' => Date('d/m/Y') ],
+				[ 'created_at' => Date('d/m/Y'), 'id' => 2, 'price' => 75, 'title' => 'Часы Rolex', 'updated_at' => Date('d/m/Y') ]
+			]
+        ]; 
+				
+		return $this->withHeaders($this->headers)->json('get', '/api/products')
+			->assertStatus(200)
+			->assertJson($expected_response)
+			->assertJsonStructure([
+				'data' => [[
+					'id',
+					'title',
+					'price',
+					'created_at',
+					'updated_at',
+				]]
+			]
+		);		
+    }
+	
+	/** @test */
+    public function test_product_create_without_title_validated() {			
 		$product = [
 			'title' => '',
 			'price' => 35.5,
-			'product_category_id' => 1,
-			'brand_id' => 1,
+			'product_category_id' => $this->productCategory->id,
+			'brand_id' => $this->brand->id,
 		];
 		
 		$expected_response = [
@@ -146,35 +144,14 @@ class ApiProductsTest extends TestCase
 			]
         ]; 
 				
-		return $this->withHeaders($headers)->json('post', '/api/products', $product)
+		return $this->withHeaders($this->headers)->json('post', '/api/products', $product)
 			->assertStatus(400)
 			->assertJson($expected_response);		
     }
 	
 	/** @test */
-    public function test_product_retrieved_successfully() {
-		ProductCategory::factory()->create();
-		Brand::factory()->create();
-		Product::factory()->create([
-			'title' => 'Часы Certina',
-			'price' => 35.5,
-			'product_category_id' => 1,
-			'brand_id' => 1,
-		]);
-		
-		Role::create([ 'name' => 'Администратор' ]);
-		$user = User::create([
-			'role_id' => 1,
-			'name' => 'Иванов Иван',
-			'email' => 'test@email.ru',
-			'password' => Hash::make('password'),
-		]);
-		$token = $user->createToken('access_token')->plainTextToken;
-		
-		$headers = [
-			'Accept' => 'application/json',
-			'Authorization' => "Bearer $token"
-		];
+    public function test_product_retrieved_successfully() {		
+		$this->createProduct();
 		
 		$expected_response = [
             'success' => true,
@@ -188,73 +165,29 @@ class ApiProductsTest extends TestCase
 			]
         ];  
 				
-		return $this->withHeaders($headers)->json('get', '/api/products/1')
+		return $this->withHeaders($this->headers)->json('get', '/api/products/1')
 			->assertStatus(200)
 			->assertJson($expected_response);
 	}
 	
 	/** @test */
-    public function test_product_not_found() {
-		ProductCategory::factory()->create();
-		Brand::factory()->create();
-		Product::factory()->create([
-			'title' => 'Часы Certina',
-			'price' => 35.5,
-			'product_category_id' => 1,
-			'brand_id' => 1,
-		]);
-		
-		Role::create([ 'name' => 'Администратор' ]);
-		$user = User::create([
-			'role_id' => 1,
-			'name' => 'Иванов Иван',
-			'email' => 'test@email.ru',
-			'password' => Hash::make('password'),
-		]);
-		$token = $user->createToken('access_token')->plainTextToken;
-		
-		$headers = [
-			'Accept' => 'application/json',
-			'Authorization' => "Bearer $token"
-		];
-		
+    public function test_product_not_found() {		
 		$expected_response = [
             'success' => false,
             'message' => 'Product not found'
         ];  
 				
-		return $this->withHeaders($headers)->json('get', '/api/products/100')
+		return $this->withHeaders($this->headers)->json('get', '/api/products/1')
 			->assertStatus(404)
 			->assertJson($expected_response);
 	}
 	
 	/** @test */
     public function test_product_updated_successfully() {
-		ProductCategory::factory()->create();
-		Brand::factory()->create();
-		Product::factory()->create([
-			'title' => 'Часы Certina',
-			'price' => 35.5,
-			'product_category_id' => 1,
-			'brand_id' => 1,
-		]);
-		
-		Role::create([ 'name' => 'Администратор' ]);
-		$user = User::create([
-			'role_id' => 1,
-			'name' => 'Иванов Иван',
-			'email' => 'test@email.ru',
-			'password' => Hash::make('password'),
-		]);
-		$token = $user->createToken('access_token')->plainTextToken;
-		
-		$headers = [
-			'Accept' => 'application/json',
-			'Authorization' => "Bearer $token"
-		];
+		$this->createProduct();
 		
 		$product = [
-			'title' => 'Часы Rolex'
+			'title' => 'Часы Longines'
 		];
 		
 		$expected_response = [
@@ -262,42 +195,21 @@ class ApiProductsTest extends TestCase
             'message' => 'Product updated successfully',
             'data'    => [
 				'id' => 1, 
-				'title' => 'Часы Rolex', 
+				'title' => 'Часы Longines', 
 				'price' => 35.5, 
 				'created_at' => Date('d/m/Y'), 
 				'updated_at' => Date('d/m/Y') 
 			]
         ];  
 				
-		return $this->withHeaders($headers)->json('put', '/api/products/1', $product)
+		return $this->withHeaders($this->headers)->json('put', '/api/products/1', $product)
 			->assertStatus(200)
 			->assertJson($expected_response);
 	}
 	
 	/** @test */
     public function test_product_update_without_title_validated() {
-		ProductCategory::factory()->create();
-		Brand::factory()->create();
-		Product::factory()->create([
-			'title' => 'Часы Certina',
-			'price' => 35.5,
-			'product_category_id' => 1,
-			'brand_id' => 1,
-		]);
-		
-		Role::create([ 'name' => 'Администратор' ]);
-		$user = User::create([
-			'role_id' => 1,
-			'name' => 'Иванов Иван',
-			'email' => 'test@email.ru',
-			'password' => Hash::make('password'),
-		]);
-		$token = $user->createToken('access_token')->plainTextToken;
-		
-		$headers = [
-			'Accept' => 'application/json',
-			'Authorization' => "Bearer $token"
-		];
+		$this->createProduct();
 		
 		$product = [
 			'title' => ''
@@ -311,43 +223,22 @@ class ApiProductsTest extends TestCase
 			]
         ];  
 				
-		return $this->withHeaders($headers)->json('put', '/api/products/1', $product)
+		return $this->withHeaders($this->headers)->json('put', '/api/products/1', $product)
 			->assertStatus(400)
 			->assertJson($expected_response);
 	}
 	
 	/** @test */
     public function test_product_deleted_successfully() {
-		ProductCategory::factory()->create();
-		Brand::factory()->create();
-		Product::factory()->create([
-			'title' => 'Часы Certina',
-			'price' => 35.5,
-			'product_category_id' => 1,
-			'brand_id' => 1,
-		]);
+		$this->createProduct();
 		
-		Role::create([ 'name' => 'Администратор' ]);
-		$user = User::create([
-			'role_id' => 1,
-			'name' => 'Иванов Иван',
-			'email' => 'test@email.ru',
-			'password' => Hash::make('password'),
-		]);
-		$token = $user->createToken('access_token')->plainTextToken;
-		
-		$headers = [
-			'Accept' => 'application/json',
-			'Authorization' => "Bearer $token"
-		];
-			
 		$expected_response = [
             'success' => true,
             'message' => 'Product deleted successfully',
             'data'    => []
         ];  
 				
-		return $this->withHeaders($headers)->json('delete', '/api/products/1')
+		return $this->withHeaders($this->headers)->json('delete', '/api/products/1')
 			->assertStatus(200)
 			->assertJson($expected_response);
 	}

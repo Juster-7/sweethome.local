@@ -14,7 +14,10 @@ class Role extends Model
 	protected $fillable = ['name'];
 	
 	public function sluggable():array {
-		return [ 'slug' => [ 'source' => 'name' ]];
+		return [ 'slug' => [ 
+			'source' => 'name'
+			]
+		];
 	}
 
 	public function users() {

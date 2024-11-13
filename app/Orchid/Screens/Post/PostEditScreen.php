@@ -64,7 +64,7 @@ class PostEditScreen extends Screen
     }
 
     public function layout(): iterable {
-        return [			
+        return [
 			Layout::rows([
 				Group::make([
 					Input::make('meta_description')
@@ -76,6 +76,8 @@ class PostEditScreen extends Screen
 						->value($this->post->meta_keyword)
 						->type('text'),
 				]),
+			]),
+			Layout::rows([
 				Group::make([
 					Select::make('user_id')
 						->empty('', 0)
@@ -96,15 +98,19 @@ class PostEditScreen extends Screen
 						->format('d.m.Y H:i')
 						->placeholder(''),
 				]),
-				Input::make('title')
-					->title('Название статьи')
-					->value($this->post->title)
+			]),
+			Layout::rows([	
+				Group::make([
+					Input::make('title')
+						->title('Название статьи')
+						->value($this->post->title)
 						->type('text'),			
-				Input::make('slug')
-					->title('Slug')
-					->value($this->post->slug)
-					->type('text')
-					->disabled(),
+					Input::make('slug')
+						->title('Slug')
+						->value($this->post->slug)
+						->type('text')
+						->disabled()
+				]),
 				Input::make('intro_text')
 					->title('Вводный текст')
 					->value($this->post->intro_text)

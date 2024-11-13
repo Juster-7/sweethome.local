@@ -6,25 +6,32 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ApiUsersTest extends TestCase
 {
-	use DatabaseMigrations;
+	use RefreshDatabase;
 	
+	public function createUser():void {
+		User::factory()
+			->for(Role::factory()->create())
+			->create([
+				'name' => 'Иванов Иван',
+				'email' => 'test@email.ru',
+				'password' => Hash::make('password'),
+			]);
+	}	
+
 	/** @test */
     public function test_user_registered_successfully() {
-		Role::create([ 'name' => 'Администратор' ]);
-        Role::create([ 'name' => 'Модератор' ]);
-        Role::create([ 'name' => 'Автор' ]);
-        Role::create([ 'name' => 'Пользователь' ]);
-	
+		$role = Role::factory()->create();
 		$user = [
+			'role_id' => $role->id,
 			'name' => 'Иванов Иван',
 			'email' => 'test@email.ru',
 			'password' => 'password',
 			'confirm_password' => 'password',
-		];		
+		];
 		
 		return $this->json('post', '/api/register', $user)
 			->assertStatus(201)
@@ -40,14 +47,14 @@ class ApiUsersTest extends TestCase
 	
 	/** @test */
     public function test_user_register_without_name_validated() {
-		Role::factory()->count(4)->create();
-	
+		$role = Role::factory()->create();
 		$user = [
+			'role_id' => $role->id,
 			'name' => '',
 			'email' => 'test@email.ru',
 			'password' => 'password',
 			'confirm_password' => 'password',
-		];		
+		];
 		
 		$expected_response = [
             'success' => false,
@@ -64,20 +71,14 @@ class ApiUsersTest extends TestCase
 	
 	/** @test */
     public function test_user_logged_in_successfully() {
-		Role::factory()->create();
-		User::create([
-			'role_id' => 1,
-			'name' => 'Иванов Иван',
-			'email' => 'test@email.ru',
-			'password' => Hash::make('password'),
-		]);		
-	
-		$user = [
+		$this->createUser();	
+
+		$testUser = [
 			'email' => 'test@email.ru',
 			'password' => 'password'
 		];		
 		
-		return $this->json('post', '/api/login', $user)
+		return $this->json('post', '/api/login', $testUser)
 			->assertStatus(200)
 			->assertJsonStructure([
 				'data' => [
@@ -91,25 +92,19 @@ class ApiUsersTest extends TestCase
 	
 	/** @test */
     public function test_user_login_failed_unauthorised() {
-		Role::factory()->create();
-		User::create([
-			'role_id' => 1,
-			'name' => 'Иванов Иван',
+		$this->createUser();		
+		
+		$testUser = [
 			'email' => 'test@email.ru',
-			'password' => Hash::make('password'),
-		]);		
-	
-		$user = [
-			'email' => 'test@email.ru',
-			'password' => 'password2'
-		];		
+			'password' => 'wrongPassword'
+		];
 		
 		$expected_response = [
 			'success' => false,
 			'message' => 'User is unauthorised'
 		];
 		
-		return $this->json('post', '/api/login', $user)
+		return $this->json('post', '/api/login', $testUser)
 			->assertStatus(401)
 			->assertJson( $expected_response );		
     }

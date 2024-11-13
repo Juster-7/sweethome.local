@@ -5,31 +5,37 @@ namespace Tests\Feature;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
 class AuthTest extends TestCase
 {
-	use RefreshDatabase;
+	use DatabaseMigrations;
     
-	/** @test */
-    public function test_user_registered_successfully() {
-		Event::fake();
+	protected $role;
 	
-		Role::factory()->count(4)->create();
+	protected function setUp():void {
+		parent::setUp();
 		
+		$this->role = Role::factory()->create();
+		Event::fake();
+	}
+	
+	/** @test */
+    public function test_user_registered_successfully() {		
 		$user = [
+			'role_id' => $this->role,
 			'name' => 'Иванов Иван',
 			'email' => 'test@email.ru',
 			'password' => 'password',
 			'password_confirmation' => 'password',
-		];		
-		$response = $this->post(route('user.register'), $user);
+		];
 		
+		$response = $this->post(route('user.register'), $user);		
 		$users = User::all();
-		$user = $users->first();
+		$user = $users->first();		
 		
         $this->assertCount(1, $users);
         $this->assertDatabaseCount('users', 1);
@@ -44,16 +50,15 @@ class AuthTest extends TestCase
 	
 	/** @test */
     public function test_user_registration_without_name_validated() {
-		Event::fake();
-	
 		$user = [
+			'role_id' => $this->role,
 			'name' => '',
 			'email' => 'test@email.ru',
 			'password' => 'password',
 			'password_confirmation' => 'password',
-		];		
+		];
+	
 		$response = $this->post(route('user.register'), $user);
-		
 		$users = User::all();
 		
         $this->assertCount(0, $users);
