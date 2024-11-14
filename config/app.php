@@ -178,6 +178,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 		App\Providers\ModelServiceProvider::class,
 		App\Providers\ComposerServiceProvider::class,
+		App\Providers\PolymorphServiceProvider::class,
     ],
 
     /*

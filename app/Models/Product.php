@@ -5,11 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
+use App\Traits\HasComments;
 
 class Product extends Model
 {
     use HasFactory;
 	use Sluggable;
+	use HasComments;
 	
 	protected $fillable = ['product_category_id', 'brand_id', 'title', 'slug', 'intro_text', 'main_text', 'image', 'price', 'quantity'];
 	

@@ -37,6 +37,46 @@
 										<br>
 										{!! $product->main_text !!}
 									</div>
+									<br>
+									<div class="section-row" id="comments">
+										<div class="section-title">
+											<h2>{{ $product->comments_count }} {{ trans_choice('отзыв|отзыва|отзывов', $product->comments_count) }}</h2> 
+										</div>
+										<div class="post-comments">
+											@foreach($comments as $comment)										
+												@include('components.comment', ['comment' => $comment])
+											@endforeach
+										</div>
+									</div>
+									<div class="section-row">
+										<div class="section-title">
+											<h2>Оставить отзыв</h2>
+										</div>
+										@guest
+											Чтобы оставить отзыв <a href="{{ route('user.login') }}">авторизуйтесь</a> или <a href="{{ route('user.register') }}">зарегистрируйтесь</a>.
+										@else
+											@if($errors->any())
+												@foreach ($errors->all() as $message)
+													<p class="error">{{ $message }}</p>
+												@endforeach
+											@endif
+											<form class="post-reply" name="add_comment" id="add_comment" action="{{ route('comment.add') }}" method="post">
+												@csrf
+												<div class="row">
+													<div class="col-md-12">
+														<div class="form-group">
+															<textarea class="input" id='add_comment_textarea' name="text" placeholder="Отзыв*">{{ old('text') }}</textarea>
+														</div>
+														<input class="input" type="hidden" name="commentable_id" id="commentable_id" value="{{ $product->id }}">
+														<input class="input" type="hidden" name="commentable_type" id="commentable_type" value="{{ $product->getMorphClass() }}">
+														<input class="input" type="hidden" name="user_id" id="user_id" value="{{ auth()->user()->id }}">
+														<input class="input" type="hidden" name="parent_id" id="parent_id" value="">
+														<input name="add_comment" class="primary-button" type="submit" value="Отправить">
+													</div>
+												</div>
+											</form>
+										@endif							
+									</div>
 								</div>
 							</div>
 						</div>

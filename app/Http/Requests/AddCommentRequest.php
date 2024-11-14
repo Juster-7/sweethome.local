@@ -14,10 +14,11 @@ class AddCommentRequest extends FormRequest
 
     public function rules() {
         return [
-            'post_id' => 'required|integer|exists:posts,id',
+            'commentable_id' => 'required|integer',
+            'commentable_type' => 'required|string',
             'user_id' => 'required|integer|exists:users,id',
-			'text' => 'required|max:250',
 			'parent_id' => 'nullable|integer|exists:comments,id',
+			'text' => 'required|max:250',
         ];
     }
 	

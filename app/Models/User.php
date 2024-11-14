@@ -75,12 +75,6 @@ class User extends Authenticatable
         'created_at',
     ];
 	
-	/*
-	public function getIdNameAttribute(): string {
-		return '['.$this->id.'] '.$this->name;
-	}
-	*/
-	
 	public function role() {
 		return $this->belongsTo(Role::class);
 	}

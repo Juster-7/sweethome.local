@@ -63,7 +63,8 @@
 										<div class="form-group">
 											<textarea class="input" id='add_comment_textarea' name="text" placeholder="Комментарий*">{{ old('text') }}</textarea>
 										</div>
-										<input class="input" type="hidden" name="post_id" id="post_id" value="{{ $post->id }}">
+										<input class="input" type="hidden" name="commentable_id" id="commentable_id" value="{{ $post->id }}">
+										<input class="input" type="hidden" name="commentable_type" id="commentable_type" value="{{ $post->getMorphClass() }}">
 										<input class="input" type="hidden" name="user_id" id="user_id" value="{{ auth()->user()->id }}">
 										<input class="input" type="hidden" name="parent_id" id="parent_id" value="">
 										<input name="add_comment" class="primary-button" type="submit" value="Отправить">

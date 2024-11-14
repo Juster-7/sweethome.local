@@ -8,12 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Orchid\Filters\Filterable;
 use Orchid\Screen\AsSource;
+use App\Traits\HasComments;
 
 class Post extends Model
 {
     use HasFactory, SoftDeletes, Sluggable;
 	use AsSource;
 	use Filterable;
+	use HasComments;
 	
 	protected $fillable = ['meta_description', 'meta_keyword', 'post_category_id', 'user_id', 'title', 'intro_text', 'main_text', 'date_show'];	
 	
@@ -40,10 +42,6 @@ class Post extends Model
 	
 	public function user() {
 		return $this->belongsTo(User::class);
-	}
-	
-	public function comments() {
-		return $this->hasMany(Comment::class);
 	}
 	
 	public function scopeActive($query): void {

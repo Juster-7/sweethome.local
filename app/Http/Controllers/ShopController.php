@@ -28,6 +28,9 @@ class ShopController extends Controller
 	}
 	
 	public function product(Product $product) {
-		return view('shop.product', compact('product'));
+		$product->loadCount(['comments']);	
+		$comments = $product->comments()->with(['children', 'user'])->whereNull('parent_id')->get();
+		
+		return view('shop.product', compact('product', 'comments'));
 	}	
 }

@@ -11,7 +11,7 @@ class Comment extends Model
     use HasFactory;
 	use SoftDeletes;
 	
-	protected $fillable = ['post_id', 'user_id', 'text', 'parent_id'];		
+	protected $fillable = ['commentable_id', 'commentable_type', 'user_id', 'text', 'parent_id'];		
 	
 	protected static function boot() {
 		parent::boot();
@@ -24,8 +24,14 @@ class Comment extends Model
 		});
 	}
 	
+	/*
 	public function post() {
 		return $this->belongsTo(Post::class);
+	}
+	*/
+	
+	public function commentable() {
+		return $this->morphTo();
 	}
 	
 	public function user() {

@@ -23,7 +23,9 @@ class CommentController extends Controller
 	}
 	
 	public function store(AddCommentRequest $request) {
-		$this->comment->fill($request->validated())->save();
+		$this->comment->fill($request->validated());
+		$this->comment->commentable($request->commentable);
+		$this->comment->save();
 		
 		return back()->withFragment('#comments');
 	}
