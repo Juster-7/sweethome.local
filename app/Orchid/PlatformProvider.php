@@ -41,13 +41,13 @@ class PlatformProvider extends OrchidServiceProvider
                 ]),	
 			Menu::make('Комментарии')
                 ->icon('bubbles')
-                ->route('platform.example.cards'),	
+                ->route('platform.systems.users'),	
 			Menu::make('Авторы')
                 ->icon('user')
-                ->route('platform.example.cards'),
+                ->route('platform.systems.users'),
 			Menu::make('Аналитика')
                 ->icon('bar-chart')
-                ->route('platform.example.cards')
+                ->route('platform.systems.users')
 				->divider(),
             
 			Menu::make('Товары')
@@ -56,23 +56,23 @@ class PlatformProvider extends OrchidServiceProvider
                 ->list([
                     Menu::make('Товары')
 						->icon('handbag')
-						->route('platform.example.cards'),
+						->route('platform.systems.users'),
                     Menu::make('Категории')
 						->icon('tag')
-						->route('platform.example.cards'),
+						->route('platform.systems.users'),
 					Menu::make('Бренды')
 						->icon('badge')
-						->route('platform.example.cards'),
+						->route('platform.systems.users'),
                 ]),	
 			Menu::make('Заказы')
                 ->icon('docs')
-                ->route('platform.example.cards'),	
+                ->route('platform.systems.users'),	
 			Menu::make('Покупатели')
                 ->icon('user')
-                ->route('platform.example.cards'),
+                ->route('platform.systems.users'),
 			Menu::make('Аналитика')
                 ->icon('pie-chart')
-                ->route('platform.example.cards')
+                ->route('platform.systems.users')
 				->divider(),
             
 			Menu::make(__('Users'))
@@ -86,6 +86,15 @@ class PlatformProvider extends OrchidServiceProvider
                 ->route('platform.systems.roles')
                 ->permission('platform.systems.roles')
 				->divider(),
+				
+			Menu::make('Статистика')
+                ->title('Статистика доступа')
+				->icon('bar-chart')
+                ->route('platform.systems.users')
+                ->permission('platform.systems.users')
+                ->divider(),	
+			
+			/*
 			
 			Menu::make('Example screen')
                 ->icon('monitor')
@@ -139,6 +148,7 @@ class PlatformProvider extends OrchidServiceProvider
                 ->url('https://github.com/orchidsoftware/platform/blob/master/CHANGELOG.md')
                 ->target('_blank')
                 ->badge(fn () => Dashboard::version(), Color::DARK()),
+			*/
         ];
     }
 
