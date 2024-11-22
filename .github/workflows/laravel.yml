@@ -30,10 +30,13 @@ jobs:
       run: |
         mkdir -p database
         touch database/database.mysql
+    - name: Run Laravel database migrations
+      env: 
+        DB_CONNECTION: mysql
+        DB_DATABASE: database/database.mysql
+      run: php artisan migrate:fresh --seed --force 
     - name: Execute tests (Unit and Feature tests) via PHPUnit/Pest
       env:
         DB_CONNECTION: mysql
-        DB_DATABASE: sweethome
-        DB_USERNAME: myuser
-        DB_PASSWORD: myuserpass
+        DB_DATABASE: database/database.mysql
       run: php artisan test
