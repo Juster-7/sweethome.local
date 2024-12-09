@@ -48,6 +48,8 @@ class User extends Authenticatable
     protected $casts = [
         'permissions'          => 'array',
         'email_verified_at'    => 'datetime',
+        //'password'    => 'hashed', // $user = User::create([ // ... 'password' => 'password', // Instead of Hash::make('password') ]);
+
     ];
 
     /**
