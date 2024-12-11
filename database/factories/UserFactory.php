@@ -18,8 +18,8 @@ class UserFactory extends Factory
     {
 		$userName = $this->faker->name();
 		$fileName = Str::random(40).'.jpg';		
-		$image = $this->createFakeProfilePhotoImage($userName);
-		$this->saveProfilePhotoFile($fileName, $image);
+		//$image = $this->createFakeProfilePhotoImage($userName);
+		//$this->saveProfilePhotoFile($fileName, $image);
 		
         return [
             'name' => $userName,
