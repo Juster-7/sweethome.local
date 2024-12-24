@@ -14,7 +14,7 @@ use Orchid\Platform\Models\User as Authenticatable;
 class User extends Authenticatable
 {
 	use HasFactory, Notifiable, HasApiTokens, HasProfilePhoto;
-	
+
     /**
      * The attributes that are mass assignable.
      *
@@ -76,11 +76,11 @@ class User extends Authenticatable
         'updated_at',
         'created_at',
     ];
-	
+
 	public function role() {
 		return $this->belongsTo(Role::class);
 	}
-	
+
 	public function comments() {
 		return $this->hasMany(Comment::class);
 	}
@@ -88,15 +88,15 @@ class User extends Authenticatable
 	public function posts() {
 		return $this->hasMany(Post::class);
 	}
-	
-	public function isAdmin() {			
-		return $this->role_id === 1;	
+
+	public function isAdmin() {
+		return $this->role_id === 1;
 	}
-	
+
 	public function profilePhotoUrl() {
-		return $this->getProfilePhotoUrl($this->photo);	
+		return $this->getProfilePhotoUrl($this->photo);
 	}
-	
+
 	public function sendPasswordResetNotification($token) {
         $notification = new ResetPassword($token);
         $notification->createUrlUsing(function ($user, $token) {

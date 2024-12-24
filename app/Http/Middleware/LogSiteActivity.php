@@ -4,18 +4,16 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use App\Models\Log;
+use App\Interfaces\LogRepositoryInterface;
 
 class LogSiteActivity
 {
-	//private $startTime;
-	
 	public function __construct(
-		protected Log $log
+		protected LogRepositoryInterface $logRepositoryInterface
 	) {}
 
-	//private $startTime;
-    /**
+
+	/**
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -23,13 +21,10 @@ class LogSiteActivity
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function handle(Request $request, Closure $next) {
-		//$this->startTime = microtime(true);
-        return $next($request);
+		return $next($request);
     }
-	
+
 	public function terminate(Request $request, $response) {
-		//$endTime = microtime(true);
-		//$this->log->duration = $endTime.' - '.$this->startTime;
-		$this->log->saveLog($request);
+		$this->logRepositoryInterface->saveLog($request);
 	}
 }

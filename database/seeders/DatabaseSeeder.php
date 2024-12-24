@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
 			PostCategorySeeder::class,
 			PostSeeder::class,
 			CommentSeeder::class,
-			BrandSeeder::class,
+			ProductBrandSeeder::class,
 			ProductCategorySeeder::class,
 			ProductSeeder::class,
 		]);

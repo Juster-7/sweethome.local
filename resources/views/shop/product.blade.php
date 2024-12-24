@@ -22,12 +22,12 @@
 						<div class="section-row">
 							<div class="col-md-12">
 								<div class="post">
-									<img src="/images/post-4.jpg" alt>									
+									<img src="/images/post-4.jpg" alt>
 									<div class="post-body">
 										<div class="post-meta">
 											<form action="{{ route('cart.add', ['id' => $product->id]) }}" method="post">
-												<a class="post-category cat-4" href="{{ route('shop.productCategory', [ $product->productCategory->slug ]) }}">{{ $product->productCategory->title }}</a> {{ $product->brand->title }}
-												<span class="post-date-big fr"><nobr>@money($product->price)</nobr> 
+												<a class="post-category cat-4" href="{{ route('shop.productCategory', [ $product->productCategory->slug ]) }}">{{ $product->productCategory->title }}</a> {{ $product->productBrand->title }}
+												<span class="post-date-big fr"><nobr>@money($product->price)</nobr>
 													@csrf
 													<input type="text" name="quantity" id="quantity" value="1" style="width:30px;margin-left:20px;">
 													<button class="post-category cat-2" style="margin-left:20px;">В КОРЗИНУ</button>
@@ -40,10 +40,10 @@
 									<br>
 									<div class="section-row" id="comments">
 										<div class="section-title">
-											<h2>{{ $product->comments_count }} {{ trans_choice('отзыв|отзыва|отзывов', $product->comments_count) }}</h2> 
+											<h2>{{ $product->comments_count }} {{ trans_choice('отзыв|отзыва|отзывов', $product->comments_count) }}</h2>
 										</div>
 										<div class="post-comments">
-											@foreach($comments as $comment)										
+											@foreach($comments as $comment)
 												@include('components.comment', ['comment' => $comment])
 											@endforeach
 										</div>
@@ -75,7 +75,7 @@
 													</div>
 												</div>
 											</form>
-										@endif							
+										@endif
 									</div>
 								</div>
 							</div>

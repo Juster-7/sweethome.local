@@ -6,11 +6,11 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 
 class ApiUsersTest extends TestCase
 {
-	use RefreshDatabase;
+	use LazilyRefreshDatabase;
 	
 	public function createUser():void {
 		User::factory()

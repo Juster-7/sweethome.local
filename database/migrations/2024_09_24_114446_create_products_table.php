@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
 			$table->unsignedBigInteger('product_category_id');
 			$table->foreign('product_category_id')->references('id')->on('product_categories')->onDelete('cascade');
-			$table->unsignedBigInteger('brand_id');
-			$table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
+			$table->unsignedBigInteger('product_brand_id');
+			$table->foreign('product_brand_id')->references('id')->on('product_brands')->onDelete('cascade');
             $table->string('title', 255);
             $table->string('slug', 255)->unique();
 			$table->text('intro_text')->nullable();

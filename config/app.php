@@ -28,7 +28,7 @@ return [
     |
     */
 
-    'env' => env('APP_ENV', 'production'),
+    'env' => env('APP_ENV', 'local'),
 
     /*
     |--------------------------------------------------------------------------
@@ -179,6 +179,7 @@ return [
 		App\Providers\ModelServiceProvider::class,
 		App\Providers\ComposerServiceProvider::class,
 		App\Providers\MorphServiceProvider::class,
+        App\Providers\RepositoryServiceProvider::class,
     ],
 
     /*

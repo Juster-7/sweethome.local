@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
-use App\Models\Product;
+use App\Interfaces\PostRepositoryInterface;
+use App\Interfaces\ProductRepositoryInterface;
 
 class IndexController extends Controller
 {
-	public function index(Post $post, Product $product) {
-		$posts = $post->getLastPosts(7);
-		$products = $product->getLastProducts(4);
-		$top_posts = $post->getTopPosts(3);
-        
-		return view('index', compact('posts', 'products', 'top_posts'));	
-	}	
+	public function index(
+            PostRepositoryInterface $postRepository,
+            ProductRepositoryInterface $productRepository
+    ) {
+		$posts = $postRepository->getLastPosts(7);
+		$top_posts = $postRepository->getTopPosts(3);
+		$products = $productRepository->getLastProducts(4);
+
+		return view('index', compact('posts', 'products', 'top_posts'));
+	}
 }

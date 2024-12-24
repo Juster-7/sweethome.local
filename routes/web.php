@@ -37,7 +37,7 @@ Route::group([
 	Route::any('category', function() { return redirect('/shop'); });
 	Route::get('category/{productCategory:slug}', [ShopController::class, 'productCategory'])->name('productCategory');
 	Route::any('brand', function() { return redirect('/shop'); });
-	Route::get('brand/{brand:slug}', [ShopController::class, 'brand'])->name('brand');
+	Route::get('brand/{productBrand:slug}', [ShopController::class, 'productBrand'])->name('productBrand');
 	Route::any('product', function() { return redirect('/shop'); });
 	Route::get('product/{product:slug}', [ShopController::class, 'product'])->name('product');
 });
@@ -55,10 +55,10 @@ Route::group([
 	Route::post('remove/{product_id}', [CartController::class, 'remove'])->where('product_id', '[0-9]+')->name('remove');
 });
 
-/** Поиск */	
+/** Поиск */
 Route::get('/search', [SearchController::class, 'search'])->name('search');
 
-/** Личный кабинет пользователя. Регистрация, вход, восстановление пароля */	
+/** Личный кабинет пользователя. Регистрация, вход, восстановление пароля */
 Route::group([
 	'as' => 'user.',
 	'prefix' => 'user'

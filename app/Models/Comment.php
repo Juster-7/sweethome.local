@@ -10,12 +10,12 @@ class Comment extends Model
 {
     use HasFactory;
 	use SoftDeletes;
-	
-	protected $fillable = ['commentable_id', 'commentable_type', 'user_id', 'text', 'parent_id'];		
-	
+
+	protected $fillable = ['commentable_id', 'commentable_type', 'user_id', 'text', 'parent_id'];
+
 	protected static function boot() {
 		parent::boot();
-		
+
 		static::deleting(function ($instance) {
 			$instance->load('children')->children->each->delete();
 		});
@@ -23,25 +23,19 @@ class Comment extends Model
 			$instance->load('children')->children->each->restore();
 		});
 	}
-	
-	/*
-	public function post() {
-		return $this->belongsTo(Post::class);
-	}
-	*/
-	
+
 	public function commentable() {
 		return $this->morphTo();
 	}
-	
+
 	public function user() {
 		return $this->belongsTo(User::class);
 	}
-	
+
 	public function children() {
 		return $this->hasMany(Comment::class, 'parent_id', 'id');
 	}
-	
+
 	public function parent() {
 		return $this->belongsTo(Comment::class, 'parent_id', 'id');
 	}

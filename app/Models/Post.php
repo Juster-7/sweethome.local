@@ -17,9 +17,20 @@ class Post extends Model
 	use Filterable;
 	use HasComments;
 	
-	protected $fillable = ['meta_description', 'meta_keyword', 'post_category_id', 'user_id', 'title', 'intro_text', 'main_text', 'date_show'];	
+	protected $fillable = [
+		'meta_description', 
+		'meta_keyword', 
+		'post_category_id', 
+		'user_id', 
+		'title', 
+		'intro_text', 
+		'main_text', 
+		'date_show'
+	];	
 	
-	protected $casts = [ 'date_show' => 'date' ];
+	protected $casts = [ 
+		'date_show' => 'date' 
+	];
 	
 	protected $allowedSorts = [
 		'id',
@@ -46,38 +57,5 @@ class Post extends Model
 	
 	public function scopeActive($query): void {
 		$query->where('date_show', '<', now());
-	}
-	
-	public function getPost(int $id) {
-		return $this->findOrFail($id);
-	}
-
-	public function getPosts() {
-		return $this->active()
-			->with(['postCategory'])
-			->latest('date_show')
-			->paginate(config('posts_on_page'))
-			->withQueryString();
-	}
-	
-	public function getLastPosts(int $count) {
-		return $this->active()
-			->with(['postCategory'])
-			->latest('date_show')
-			->take($count)
-			->get();
-	}
-	
-	public function getTopPosts(int $count) {
-		return $this
-			->active()
-			->with(['postCategory'])
-			->latest('hits')
-			->take($count)
-			->get();
-	}
-		
-	public function incrementHits(): void{
-		$this->increment('hits');
 	}
 }

@@ -14,26 +14,22 @@ class ProductCategory extends Model
 	use Sluggable;
 
 	public function sluggable():array {
-		return [ 'slug' => [ 
+		return [ 'slug' => [
 			'source' => 'title',
 			'onUpdate' => true
 			]
 		];
 	}
-	
+
 	public function children() {
 		return $this->hasMany(ProductCategory::class, 'parent_id', 'id');
 	}
-	
+
 	public function parent() {
 		return $this->belongsTo(ProductCategory::class, 'parent_id', 'id');
 	}
-	
+
 	public function products() {
 		return $this->hasMany(Product::class);
-	}
-	
-	public function getRootCategories() {
-		return $this->where('parent_id', 0)->get();
 	}
 }

@@ -12,33 +12,26 @@ class Product extends Model
     use HasFactory;
 	use Sluggable;
 	use HasComments;
-	
+
 	protected $fillable = ['product_category_id', 'brand_id', 'title', 'slug', 'intro_text', 'main_text', 'image', 'price', 'quantity'];
-	
+
 	public function sluggable():array {
-		return [ 'slug' => [ 
+		return [ 'slug' => [
 			'source' => 'title',
 			'onUpdate' => true
 			]
 		];
 	}
-	
+
 	public function productCategory() {
 		return $this->belongsTo(ProductCategory::class);
 	}
-	
-	public function brand() {
-		return $this->belongsTo(Brand::class);
+
+	public function productBrand() {
+		return $this->belongsTo(ProductBrand::class);
 	}
-	
+
 	public function carts() {
 		return $this->belongsToMany(Cart::class)->withPivot('quantity');
-	}
-	
-	public function getLastProducts(int $count) {
-		return $this->latest('id')
-			->with(['productCategory'])
-			->take($count)
-			->get();
 	}
 }

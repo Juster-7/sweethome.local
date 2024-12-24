@@ -28,7 +28,7 @@ trait HasProfilePhoto
 	}
 	
 	public function createProfilePhotoImage($filename) {        
-		return (string) ImageManager::imagick()
+		return (string) ImageManager::Gd()
 			->read($filename)
 			->coverDown(120, 120)
 			->encode();
@@ -38,11 +38,11 @@ trait HasProfilePhoto
 		$username = explode(' ', $username);
 		$username = mb_substr($username[0],0,1).mb_substr($username[1],0,1);
 		
-		return (string) ImageManager::imagick()
+		return (string) ImageManager::Gd()
 			->create(120, 120)
 			->fill(str_replace('#','',$this->faker->hexcolor()))
 			->text($username, 60, 60, function (FontFactory $font) {
-				$font->filename(public_path('\fonts\cour.ttf'));
+				$font->filename(public_path('/fonts/cour.ttf'));
 				$font->size(60);
 				$font->color('000');
 				$font->align('center');
