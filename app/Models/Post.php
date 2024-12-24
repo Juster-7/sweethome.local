@@ -12,49 +12,51 @@ use App\Traits\HasComments;
 
 class Post extends Model
 {
-    use HasFactory, SoftDeletes, Sluggable;
+    use HasFactory;
+    use SoftDeletes;
+    use Sluggable;
 	use AsSource;
 	use Filterable;
 	use HasComments;
-	
+
 	protected $fillable = [
-		'meta_description', 
-		'meta_keyword', 
-		'post_category_id', 
-		'user_id', 
-		'title', 
-		'intro_text', 
-		'main_text', 
+		'meta_description',
+		'meta_keyword',
+		'post_category_id',
+		'user_id',
+		'title',
+		'intro_text',
+		'main_text',
 		'date_show'
-	];	
-	
-	protected $casts = [ 
-		'date_show' => 'date' 
 	];
-	
+
+	protected $casts = [
+		'date_show' => 'date'
+	];
+
 	protected $allowedSorts = [
 		'id',
 		'title',
 		'hits',
 		'created_at',
 	];
-	
+
 	public function sluggable():array {
-		return [ 'slug' => [ 
+		return [ 'slug' => [
 			'source' => 'title',
 			'onUpdate' => true
 			]
 		];
 	}
-	
+
 	public function postCategory() {
 		return $this->belongsTo(PostCategory::class);
 	}
-	
+
 	public function user() {
 		return $this->belongsTo(User::class);
 	}
-	
+
 	public function scopeActive($query): void {
 		$query->where('date_show', '<', now());
 	}
